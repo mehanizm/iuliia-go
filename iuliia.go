@@ -7,7 +7,6 @@
 package iuliia
 
 import (
-	"bufio"
 	"fmt"
 	"io"
 	"strings"
@@ -159,34 +158,4 @@ func (s *Schema) Translate(source string) (string, error) {
 		translated = append(translated, translatedWord)
 	}
 	return strings.Join(translated, " "), nil
-}
-
-// translateLargeText translates due to schema
-// method with stream reading in writing
-// may be usefull for large text
-// but benchmark shows that not so good
-func (s *Schema) translateLargeText(source string) (string, error) {
-	if !s.isBuilt {
-		s.build()
-	}
-	res := strings.Builder{}
-	reader := bufio.NewReader(strings.NewReader(source))
-	for {
-		word, err := reader.ReadString(' ')
-		isEOF := err == io.EOF
-		if !isEOF && err != nil {
-			return "", err
-		}
-		translatedWord, err := s.translateWord(word)
-		if err != nil {
-			return "", err
-		}
-		_, err = res.WriteString(translatedWord)
-		if err != nil {
-			return "", err
-		}
-		if isEOF {
-			return res.String(), nil
-		}
-	}
 }
