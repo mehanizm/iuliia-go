@@ -55,6 +55,12 @@ func TestSchema_translateWord(t *testing.T) {
 			out:     "yeshchyo",
 			wantErr: false,
 		},
+		{
+			name:    "with ending",
+			in:      "старый",
+			out:     "stary",
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -82,20 +88,63 @@ func TestSchema_translateLetter(t *testing.T) {
 		want string
 	}{
 		{
-			"1",
+			"current",
 			args{'ъ', 'е', 'ш'},
 			"ye",
 		},
 		{
-			"2",
+			"prev mapping",
 			args{rune(0), 'е', 'щ'},
 			"ye",
+		},
+		{
+			"not cyrillic",
+			args{rune(0), '😁', rune(0)},
+			"😁",
+		},
+		{
+			"next mapping",
+			args{rune(0), 'ь', 'а'},
+			"y",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Wikipedia.build().translateLetter(tt.args.prev, tt.args.curr, tt.args.next); got != tt.want {
 				t.Errorf("Schema.translateLetter() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestSchema_translateEnding(t *testing.T) {
+	tests := []struct {
+		name     string
+		ending   string
+		want     string
+		wantBool bool
+	}{
+		{
+			"translated",
+			"ый",
+			"y",
+			true,
+		},
+		{
+			"translated",
+			"уй",
+			"уй",
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, wantBool := Wikipedia.build().translateEnding(tt.ending)
+			if got != tt.want {
+				t.Errorf("Schema.translateEnding() got = %v, want %v", got, tt.want)
+			}
+			if wantBool != tt.wantBool {
+				t.Errorf("Schema.translateEnding() got1 = %v, want %v", wantBool, tt.wantBool)
 			}
 		})
 	}
