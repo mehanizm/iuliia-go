@@ -1,0 +1,54 @@
+schema_name: wikipedia
+test_cases:
+    1:
+        - "Юлия, съешь ещё этих мягких французских булок из Йошкар-Олы, да выпей алтайского чаю"
+        - "Yuliya, syesh yeshchyo etikh myagkikh frantsuzskikh bulok iz Yoshkar-Oly, da vypey altayskogo chayu"
+    2:
+        - "Россия, город Йошкар-Ола, улица Яна Крастыня"
+        - "Rossiya, gorod Yoshkar-Ola, ulitsa Yana Krastynya"
+    3:
+        - "Ельцин"
+        - "Yeltsin"
+    4:
+        - "Раздольное"
+        - "Razdolnoye"
+    5:
+        - "Юрьев"
+        - "Yuryev"
+    6:    
+        - "Белкин"
+        - "Belkin"
+    7:
+        - "Бийск"
+        - "Biysk"
+    8:    
+        - "Подъярский"
+        - "Podyarsky"
+    9:    
+        - "Мусийкъонгийкоте"
+        - "Musiykyongiykote"
+    10:    
+        - "Давыдов"
+        - "Davydov"
+    11:
+        - "Усолье"
+        - "Usolye"
+    12:    
+        - "Выхухоль"
+        - "Vykhukhol"
+    13:    
+        - "Дальнегорск" 
+        - "Dalnegorsk"
+    14:    
+        - "Ильинский" 
+        - "Ilyinsky"
+    15:    
+        - "Красный" 
+        - "Krasny"
+    16:    
+        - "Великий"
+        - "Veliky"
+    17:    
+        - "Набережные Челны"
+        - "Naberezhnye Chelny"
+    
