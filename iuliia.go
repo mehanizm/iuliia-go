@@ -3,15 +3,12 @@
 //
 // Use of this source code is governed by an MIT license.
 // Details in the LICENSE file.
-//go:generate go run schemas_generator/gen.go schemas schemas.go && gofmt -s *
+//go:generate go run schemas_generator/gen.go schemas schemas.go && gofmt -s .
 package iuliia
 
 import (
-	"bytes"
 	"io"
-	"log"
 	"strings"
-	"text/template"
 )
 
 var baseMapping = map[string]string{
@@ -34,82 +31,6 @@ var baseMapping = map[string]string{
 	"т": "t",
 	"у": "u",
 	"ф": "f",
-}
-
-var schemaTpl = template.Must(template.New("schemaTpl").Parse(`
-// {{.GetName}} schema
-var {{.GetName}} = &Schema{
-	Name: "{{.Name}}",
-	Mapping: map[string]string{
-		{{- range $key, $value := .Mapping }}
-		"{{ $key }}": "{{ $value }}",
-		{{- end }}
-	},
-	PrevMapping: map[string]string{
-		{{- range $key, $value := .PrevMapping }}
-		"{{ $key }}": "{{ $value }}",
-		{{- end }}
-	},
-	NextMapping: map[string]string{
-		{{- range $key, $value := .NextMapping }}
-		"{{ $key }}": "{{ $value }}",
-		{{- end }}
-	},
-	EndingMapping: map[string]string{
-		{{- range $key, $value := .EndingMapping }}
-		"{{ $key }}": "{{ $value }}",
-		{{- end }}
-	},
-}
-`))
-
-var schemaTestTpl = template.Must(template.New("schemaTestTpl").Parse(`
-func Test_{{ .GetName }}(t *testing.T) {
-	tests := []struct {
-		name string
-		in   string
-		out  string
-	}{
-		{{- range $key, $value := .TestCases}}
-		{
-			name: "{{ $key }}",
-			in:   "{{ index $value 0 }}",
-			out:  "{{ index $value 1 }}",
-		},
-		{{- end}}
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := {{ .GetName }}.Translate(tt.in)
-			if err != nil {
-				t.Errorf("{{ .GetName }} get an err:\n%v", err)
-			}
-			if got != tt.out {
-				fmt.Println({{ .GetName }})
-				t.Errorf("{{ .GetName }} got:\n%v\nbut want:\n%v\n", got, tt.out)
-			}
-		})
-	}
-}
-`))
-
-// SchemaTest struct of the schema test case
-type SchemaTest struct {
-	Name      string               `yaml:"schema_name"`
-	TestCases map[string][2]string `yaml:"test_cases"`
-}
-
-// GetName get title name of the schema
-func (s *SchemaTest) GetName() string {
-	return strings.Title(s.Name)
-}
-
-func (s *SchemaTest) String() string {
-	var res bytes.Buffer
-	if err := schemaTestTpl.Execute(&res, s); err != nil {
-		log.Fatal(err)
-	}
-	return res.String()
 }
 
 // Schema base Schema struct
@@ -151,19 +72,6 @@ func (s *Schema) build() *Schema {
 	s.isBuilt = true
 
 	return s
-}
-
-// GetName get title name of the schema
-func (s *Schema) GetName() string {
-	return strings.Title(s.Name)
-}
-
-func (s *Schema) String() string {
-	var res bytes.Buffer
-	if err := schemaTpl.Execute(&res, s); err != nil {
-		log.Fatal(err)
-	}
-	return res.String()
 }
 
 func (s *Schema) translateLetter(prev, curr, next rune) string {
