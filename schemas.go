@@ -22,7 +22,7 @@ var Wikipedia = &Schema{
 	},
 	PrevMapping: map[string]string{
 		"ае": "ye",
-		"е": "ye",
+		"е":  "ye",
 		"ие": "ye",
 		"ое": "ye",
 		"уе": "ye",
@@ -51,4 +51,3 @@ var Wikipedia = &Schema{
 		"ый": "y",
 	},
 }
-

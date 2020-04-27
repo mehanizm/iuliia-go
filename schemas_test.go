@@ -1,7 +1,6 @@
 // Package iuliia do not edit, generated file
 package iuliia
 
-
 import (
 	"fmt"
 	"testing"
@@ -114,4 +113,3 @@ func Test_Wikipedia(t *testing.T) {
 		})
 	}
 }
-

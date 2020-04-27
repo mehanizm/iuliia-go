@@ -1,4 +1,4 @@
-// go:generate go run schema_generator.go
+// go:generate go run schema_generator.go && gofmt -s ../*
 
 package main
 
@@ -15,9 +15,8 @@ import (
 )
 
 const (
-	dirWithSchemasConst     = "../schemas"
-	fileToGenerateConst     = "../schemas.go"
-	fileTestToGenerateConst = "../schemas_test.go"
+	dirWithSchemasConst = "../schemas"
+	fileToGenerateConst = "../schemas.go"
 )
 
 type schemable interface {
@@ -56,13 +55,7 @@ func main() {
 	if fileToGenerate == "" {
 		fileToGenerate = fileToGenerateConst
 	}
-	fileTestToGenerate := ""
-	if len(os.Args) >= 4 {
-		fileToGenerate = os.Args[3]
-	}
-	if fileTestToGenerate == "" {
-		fileTestToGenerate = fileTestToGenerateConst
-	}
+	fileTestToGenerate := strings.Replace(fileToGenerate, ".go", "_test.go", -1)
 
 	schemaFiles, err := ioutil.ReadDir(dirWithSchemas)
 	if err != nil {

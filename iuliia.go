@@ -1,3 +1,9 @@
+// Package iuliia main
+// Copyright © 2020 Mike Berezin
+//
+// Use of this source code is governed by an MIT license.
+// Details in the LICENSE file.
+//go:generate go run schemas_generator/gen.go schemas schemas.go && gofmt -s *
 package iuliia
 
 import (

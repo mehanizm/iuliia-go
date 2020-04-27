@@ -4,7 +4,7 @@
 [![GoDoc](https://godoc.org/github.com/mehanizm/iuliia-go?status.svg)](https://pkg.go.dev/github.com/mehanizm/airtable)
 ![Go](https://github.com/mehanizm/iuliia-go/workflows/Go/badge.svg)
 [![codecov](https://codecov.io/gh/mehanizm/iuliia-go/branch/master/graph/badge.svg)](https://codecov.io/gh/mehanizm/iuliia-go)
-[![Go Report](https://goreportcard.com/badge/github.com/mehanizm/iuliia-go)](https://goreportcard.com/badge/github.com/mehanizm/iuliia-go)
+[![Go Report](https://goreportcard.com/badge/github.com/mehanizm/iuliia-go)](https://goreportcard.com/report/github.com/mehanizm/iuliia-go)
 
 Transliteration means representing Cyrillic data (mainly names and geographic locations) with Latin letters. It is used for international passports, visas, green cards, driving licenses, mail and goods delivery etc.
 
