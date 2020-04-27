@@ -28,7 +28,7 @@ func Test_splitWord(t *testing.T) {
 	}
 }
 
-func Test_letterReader_ReadLetters(t *testing.T) {
+func Test_letterReader_readLetters(t *testing.T) {
 	tests := []struct {
 		name string
 		in   string
@@ -69,24 +69,24 @@ func Test_letterReader_ReadLetters(t *testing.T) {
 			lr := newLetterReader(tt.in)
 			i := 0
 			for {
-				gotPrev, gotCurr, gotNext, gotErr := lr.ReadLetters()
+				gotPrev, gotCurr, gotNext, gotErr := lr.readLetters()
 				expPrev := tt.out[i][0]
 				expCurr := tt.out[i][1]
 				expNext := tt.out[i][2]
 				i++
 				expErr := len(tt.out) == i
 				if (gotErr != nil) != expErr {
-					t.Errorf("letterReader.ReadLetters() error = %v, wantErr %v", gotErr, expErr)
+					t.Errorf("letterReader.readLetters() error = %v, wantErr %v", gotErr, expErr)
 					return
 				}
 				if gotPrev != expPrev {
-					t.Errorf("letterReader.ReadLetters() got = %v, want %v", gotPrev, expPrev)
+					t.Errorf("letterReader.readLetters() got = %v, want %v", gotPrev, expPrev)
 				}
 				if gotCurr != expCurr {
-					t.Errorf("letterReader.ReadLetters() got1 = %v, want %v", gotCurr, expPrev)
+					t.Errorf("letterReader.readLetters() got1 = %v, want %v", gotCurr, expPrev)
 				}
 				if gotNext != expNext {
-					t.Errorf("letterReader.ReadLetters() got2 = %v, want %v", gotNext, expPrev)
+					t.Errorf("letterReader.readLetters() got2 = %v, want %v", gotNext, expPrev)
 				}
 				if gotErr != nil {
 					return

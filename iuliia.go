@@ -7,6 +7,8 @@
 package iuliia
 
 import (
+	"bufio"
+	"fmt"
 	"io"
 	"strings"
 )
@@ -43,6 +45,7 @@ type Schema struct {
 	isBuilt       bool
 }
 
+// build initiate schema from raw source
 func (s *Schema) build() *Schema {
 	mapping := make(map[string]string)
 	for key, value := range baseMapping {
@@ -74,6 +77,8 @@ func (s *Schema) build() *Schema {
 	return s
 }
 
+// translateLetter translates one letter
+// with respect to neighbors
 func (s *Schema) translateLetter(prev, curr, next rune) string {
 	prevPair, nextPair := getPairs(prev, curr, next)
 	if translated, existInPrev := s.PrevMapping[prevPair]; existInPrev {
@@ -88,6 +93,9 @@ func (s *Schema) translateLetter(prev, curr, next rune) string {
 	return string(curr)
 }
 
+// transalteEnding translates ending of the word
+// return result and true if ending was translated
+// return result and false if there is no ending in the schema
 func (s *Schema) translateEnding(ending string) (string, bool) {
 	if translated, existInEnding := s.EndingMapping[ending]; existInEnding {
 		return translated, true
@@ -95,21 +103,29 @@ func (s *Schema) translateEnding(ending string) (string, bool) {
 	return ending, false
 }
 
+// translateLetters translates stem of the word
 func (s *Schema) translateLetters(word string) (string, error) {
 	var res strings.Builder
 	wordReader := newLetterReader(word)
 	for {
-		prev, curr, next, isLast := wordReader.ReadLetters()
+		prev, curr, next, isLast := wordReader.readLetters()
 		_, err := res.WriteString(s.translateLetter(prev, curr, next))
-		if err != nil || (isLast != nil && isLast != io.EOF) {
-			return res.String(), err
+		if isLast != nil && isLast != io.EOF {
+			return res.String(), fmt.Errorf("error in reading words: %w", isLast)
 		}
+		if err != nil {
+			return res.String(), fmt.Errorf("error in writing string: %w", err)
+		}
+
 		if isLast == io.EOF {
 			return res.String(), nil
 		}
 	}
 }
 
+// translateWord split the input
+// word to stem and ending
+// Translate parts and combine result
 func (s *Schema) translateWord(word string) (string, error) {
 	stem, ending := splitWord(word)
 	translatedEnding, isEndingTranslated := s.translateEnding(ending)
@@ -127,7 +143,9 @@ func (s *Schema) translateWord(word string) (string, error) {
 	return translatedWord, nil
 }
 
-// Translate translates due to schema
+// Translate translates input strings with schema
+// return error if any of the word
+// was translated with error
 func (s *Schema) Translate(source string) (string, error) {
 	if !s.isBuilt {
 		s.build()
@@ -141,4 +159,34 @@ func (s *Schema) Translate(source string) (string, error) {
 		translated = append(translated, translatedWord)
 	}
 	return strings.Join(translated, " "), nil
+}
+
+// translateLargeText translates due to schema
+// method with stream reading in writing
+// may be usefull for large text
+// but benchmark shows that not so good
+func (s *Schema) translateLargeText(source string) (string, error) {
+	if !s.isBuilt {
+		s.build()
+	}
+	res := strings.Builder{}
+	reader := bufio.NewReader(strings.NewReader(source))
+	for {
+		word, err := reader.ReadString(' ')
+		isEOF := err == io.EOF
+		if !isEOF && err != nil {
+			return "", err
+		}
+		translatedWord, err := s.translateWord(word)
+		if err != nil {
+			return "", err
+		}
+		_, err = res.WriteString(translatedWord)
+		if err != nil {
+			return "", err
+		}
+		if isEOF {
+			return res.String(), nil
+		}
+	}
 }

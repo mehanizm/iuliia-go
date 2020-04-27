@@ -6,6 +6,7 @@ import (
 	"unicode/utf8"
 )
 
+// splitWord to stem and ending
 func splitWord(word string) (string, string) {
 	endingLength := 2
 	lenOfWord := utf8.RuneCountInString(word)
@@ -17,11 +18,13 @@ func splitWord(word string) (string, string) {
 		string(wordInRune[lenOfWord-endingLength:])
 }
 
+// capitalize uppers only first letter of the string
 func capitalize(in string) string {
 	firstLetter, size := utf8.DecodeRuneInString(in)
 	return string(unicode.ToUpper(firstLetter)) + in[size:]
 }
 
+// getPairs convert rune triplet to two string pairs
 func getPairs(prev, curr, next rune) (prevPair string, nextPair string) {
 	if prev != rune(0) {
 		prevPair += string(prev)
@@ -34,6 +37,7 @@ func getPairs(prev, curr, next rune) (prevPair string, nextPair string) {
 	return
 }
 
+// letterReader struct to read rune triplets
 type letterReader struct {
 	wordInRune       []rune
 	index            int
@@ -41,6 +45,7 @@ type letterReader struct {
 	prev, curr, next string
 }
 
+// letterReader constructor
 func newLetterReader(in string) *letterReader {
 	return &letterReader{
 		wordInRune: []rune(in),
@@ -48,7 +53,13 @@ func newLetterReader(in string) *letterReader {
 		size:       utf8.RuneCountInString(in),
 	}
 }
-func (lr *letterReader) ReadLetters() (rune, rune, rune, error) {
+
+// readLetters reads rune triplets from string
+// return io.IOF if string is end
+func (lr *letterReader) readLetters() (rune, rune, rune, error) {
+	if lr.size == 0 {
+		return rune(0), rune(0), rune(0), io.EOF
+	}
 	if lr.size == 1 {
 		return rune(0), lr.wordInRune[0], rune(0), io.EOF
 	}
