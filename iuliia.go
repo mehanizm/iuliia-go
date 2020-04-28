@@ -36,11 +36,14 @@ var baseMapping = map[string]string{
 
 // Schema base Schema struct
 type Schema struct {
-	Name          string            `yaml:"schema_name"`
-	Mapping       map[string]string `yaml:"mapping"`
-	PrevMapping   map[string]string `yaml:"prev_mapping"`
-	NextMapping   map[string]string `yaml:"next_mapping"`
-	EndingMapping map[string]string `yaml:"ending_mapping"`
+	Name          string            `json:"name"`
+	Desc          string            `json:"description"`
+	URL           string            `json:"url"`
+	Mapping       map[string]string `json:"mapping"`
+	PrevMapping   map[string]string `json:"prev_mapping"`
+	NextMapping   map[string]string `json:"next_mapping"`
+	EndingMapping map[string]string `json:"ending_mapping"`
+	Samples       [][]string        `json:"samples"`
 	isBuilt       bool
 }
 

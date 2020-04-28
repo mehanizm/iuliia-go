@@ -4,6 +4,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"go/format"
 	"io/ioutil"
@@ -14,7 +15,6 @@ import (
 	"text/template"
 
 	"github.com/mehanizm/iuliia-go"
-	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -22,44 +22,55 @@ const (
 	fileToGenerateConst = "../schemas.go"
 )
 
-var schemaTpl = template.Must(template.New("schemaTpl").Parse(`
-// {{.GetName}} schema
-var {{.GetName}} = &Schema{
-	Name: "{{.Name}}",
+func escapeQuotes(input string) string {
+	return strings.Replace(input, "\"", "\\\"", -1)
+}
+
+var funcMap = template.FuncMap{
+	"escape": escapeQuotes,
+}
+
+var schemaTpl = template.Must(template.New("schemaTpl").Funcs(funcMap).Parse(`
+// {{ .GetName }} schema
+// {{ .Desc }}
+// {{ .URL }}
+var {{ .GetName }} = &Schema{
+	Name: "{{ .Name }}",
 	Mapping: map[string]string{
 		{{- range $key, $value := .Mapping }}
-		"{{ $key }}": "{{ $value }}",
+		"{{ escape $key }}": "{{ escape $value }}",
 		{{- end }}
 	},
 	PrevMapping: map[string]string{
 		{{- range $key, $value := .PrevMapping }}
-		"{{ $key }}": "{{ $value }}",
+		"{{ escape $key }}": "{{ escape $value }}",
 		{{- end }}
 	},
 	NextMapping: map[string]string{
 		{{- range $key, $value := .NextMapping }}
-		"{{ $key }}": "{{ $value }}",
+		"{{ escape $key }}": "{{ escape $value }}",
 		{{- end }}
 	},
 	EndingMapping: map[string]string{
 		{{- range $key, $value := .EndingMapping }}
-		"{{ $key }}": "{{ $value }}",
+		"{{ escape $key }}": "{{ escape $value }}",
 		{{- end }}
 	},
 }`))
 
-var schemaTestTpl = template.Must(template.New("schemaTestTpl").Parse(`
+var schemaTestTpl = template.Must(template.New("schemaTestTpl").Funcs(funcMap).Parse(`
+// {{ .GetName }} schema
 func Test_{{ .GetName }}(t *testing.T) {
 	tests := []struct {
 		name string
 		in   string
 		out  string
 	}{
-		{{- range $key, $value := .TestCases}}
+		{{- range $i, $sample := .Samples}}
 		{
-			name: "{{ $key }}",
-			in:   "{{ index $value 0 }}",
-			out:  "{{ index $value 1 }}",
+			name: "{{ $i }}",
+			in:   "{{ index $sample 0 | escape }}",
+			out:  "{{ index $sample 1 | escape }}",
 		},
 		{{- end}}
 	}
@@ -88,48 +99,26 @@ var SchemaMapping = map[string]*Schema{
 
 type schemable interface {
 	String() string
+	StringTest() string
 	GetName() string
 	GetDictName() string
 }
 
-// SchemaTest struct of the schema test case
-type SchemaTest struct {
-	Name      string               `yaml:"schema_name"`
-	TestCases map[string][2]string `yaml:"test_cases"`
-}
+// SchemaGen composite type for generation
+type SchemaGen iuliia.Schema
 
 // GetName get title name of the schema
-func (s *SchemaTest) GetName() string {
+func (s *SchemaGen) GetName() string {
 	return strings.Title(s.Name)
 }
 
 // GetDictName get name of the schema
-func (s *SchemaTest) GetDictName() string {
+func (s *SchemaGen) GetDictName() string {
 	return s.Name
 }
 
-func (s *SchemaTest) String() string {
-	var res bytes.Buffer
-	if err := schemaTestTpl.Execute(&res, s); err != nil {
-		log.Fatal(err)
-	}
-	return res.String()
-}
-
-// SchemaMain composite to implement interface
-type SchemaMain iuliia.Schema
-
-// GetName get title name of the schema
-func (s *SchemaMain) GetName() string {
-	return strings.Title(s.Name)
-}
-
-// GetDictName get name of the schema
-func (s *SchemaMain) GetDictName() string {
-	return s.Name
-}
-
-func (s *SchemaMain) String() string {
+// String generate code for stucts
+func (s *SchemaGen) String() string {
 	var res bytes.Buffer
 	if err := schemaTpl.Execute(&res, s); err != nil {
 		log.Fatal(err)
@@ -137,16 +126,31 @@ func (s *SchemaMain) String() string {
 	return res.String()
 }
 
-func printSchemaToBuffer(fileToRead string, schema schemable, schemas map[string]string, destinationToWrite *bytes.Buffer) error {
+// StringTest generate code for tests
+func (s *SchemaGen) StringTest() string {
+	var res bytes.Buffer
+	if err := schemaTestTpl.Execute(&res, s); err != nil {
+		log.Fatal(err)
+	}
+	return res.String()
+}
+
+func printSchemaToBuffer(
+	fileToRead string, schema schemable, schemas map[string]string,
+	destinationToWriteCode, destinationToWriteTest *bytes.Buffer) error {
 	schemaFileData, err := ioutil.ReadFile(fileToRead)
 	if err != nil {
 		return err
 	}
-	err = yaml.Unmarshal(schemaFileData, schema)
+	err = json.Unmarshal(schemaFileData, schema)
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprint(destinationToWrite, schema.String())
+	_, err = fmt.Fprint(destinationToWriteCode, schema.String())
+	if err != nil {
+		return err
+	}
+	_, err = fmt.Fprint(destinationToWriteTest, schema.StringTest())
 	if err != nil {
 		return err
 	}
@@ -157,9 +161,9 @@ func printSchemaToBuffer(fileToRead string, schema schemable, schemas map[string
 func printToFileWithFmt(buffer *bytes.Buffer, fileToWrite *os.File) error {
 	formatted, err := format.Source(buffer.Bytes())
 	if err != nil {
-		return err
+		return fmt.Errorf("error in go formatting: %w", err)
 	}
-	_, err = fmt.Fprintln(fileToWrite, string(formatted))
+	_, err = fmt.Fprintf(fileToWrite, "%s", formatted)
 	if err != nil {
 		return err
 	}
@@ -205,48 +209,41 @@ func main() {
 	fmt.Fprintln(generatedTestFile, `import (
 	"fmt"
 	"testing"
-)
-
-// spell-checker: disable`)
+)`)
 
 	var b, bt []byte
 	buffer := bytes.NewBuffer(b)
 	bufferTest := bytes.NewBuffer(bt)
-
 	schemas := make(map[string]string, 0)
 	for _, schemaFile := range schemaFiles {
+		if !strings.HasSuffix(schemaFile.Name(), ".json") {
+			continue
+		}
 		var err error
 		var schema schemable
-		var destinationToWrite *bytes.Buffer
 		fileToRead := filepath.Join(dirWithSchemas, schemaFile.Name())
 		fmt.Println(fileToRead)
-		switch {
-		case strings.Contains(schemaFile.Name(), "test"):
-			schema = &SchemaTest{}
-			destinationToWrite = bufferTest
-		default:
-			schema = &SchemaMain{}
-			destinationToWrite = buffer
-		}
-		err = printSchemaToBuffer(fileToRead, schema, schemas, destinationToWrite)
+		schema = &SchemaGen{}
+		err = printSchemaToBuffer(fileToRead, schema, schemas, buffer, bufferTest)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
+
 	var res bytes.Buffer
 	if err := schemasTpl.Execute(&res, schemas); err != nil {
-		log.Fatal(err)
+		log.Panicln("error in gen template for all schemas", err)
 	}
 	_, err = fmt.Fprint(buffer, res.String())
 	if err != nil {
-		log.Fatal(err)
+		log.Panicln("error in adding code for all schemas", err)
 	}
 	err = printToFileWithFmt(buffer, generatedFile)
 	if err != nil {
-		log.Fatal(err)
+		log.Panicln("error in printing to file result", err)
 	}
 	err = printToFileWithFmt(bufferTest, generatedTestFile)
 	if err != nil {
-		log.Fatal(err)
+		log.Panicln("error in printing to file test result", err)
 	}
 }
