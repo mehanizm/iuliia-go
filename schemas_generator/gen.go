@@ -65,6 +65,7 @@ func Test_{{ .GetName }}(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			{{ .GetName }}.isBuilt = false
 			got, err := {{ .GetName }}.Translate(tt.in)
 			if err != nil {
 				t.Errorf("{{ .GetName }} get an err:\n%v", err)
@@ -77,9 +78,18 @@ func Test_{{ .GetName }}(t *testing.T) {
 	}
 }`))
 
+var schemasTpl = template.Must(template.New("schemasTpl").Parse(`
+// SchemaMapping mapping of all schemas
+var SchemaMapping = map[string]*Schema{
+	{{- range $key, $value := . }}
+	"{{ $key }}": {{ $value }},
+	{{- end }}
+}`))
+
 type schemable interface {
 	String() string
 	GetName() string
+	GetDictName() string
 }
 
 // SchemaTest struct of the schema test case
@@ -91,6 +101,11 @@ type SchemaTest struct {
 // GetName get title name of the schema
 func (s *SchemaTest) GetName() string {
 	return strings.Title(s.Name)
+}
+
+// GetDictName get name of the schema
+func (s *SchemaTest) GetDictName() string {
+	return s.Name
 }
 
 func (s *SchemaTest) String() string {
@@ -109,6 +124,11 @@ func (s *SchemaMain) GetName() string {
 	return strings.Title(s.Name)
 }
 
+// GetDictName get name of the schema
+func (s *SchemaMain) GetDictName() string {
+	return s.Name
+}
+
 func (s *SchemaMain) String() string {
 	var res bytes.Buffer
 	if err := schemaTpl.Execute(&res, s); err != nil {
@@ -117,7 +137,7 @@ func (s *SchemaMain) String() string {
 	return res.String()
 }
 
-func printSchemaToBuffer(fileToRead string, schema schemable, destinationToWrite *bytes.Buffer) error {
+func printSchemaToBuffer(fileToRead string, schema schemable, schemas map[string]string, destinationToWrite *bytes.Buffer) error {
 	schemaFileData, err := ioutil.ReadFile(fileToRead)
 	if err != nil {
 		return err
@@ -130,6 +150,7 @@ func printSchemaToBuffer(fileToRead string, schema schemable, destinationToWrite
 	if err != nil {
 		return err
 	}
+	schemas[schema.GetDictName()] = schema.GetName()
 	return nil
 }
 
@@ -191,6 +212,8 @@ func main() {
 	var b, bt []byte
 	buffer := bytes.NewBuffer(b)
 	bufferTest := bytes.NewBuffer(bt)
+
+	schemas := make(map[string]string, 0)
 	for _, schemaFile := range schemaFiles {
 		var err error
 		var schema schemable
@@ -205,10 +228,18 @@ func main() {
 			schema = &SchemaMain{}
 			destinationToWrite = buffer
 		}
-		err = printSchemaToBuffer(fileToRead, schema, destinationToWrite)
+		err = printSchemaToBuffer(fileToRead, schema, schemas, destinationToWrite)
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
+	var res bytes.Buffer
+	if err := schemasTpl.Execute(&res, schemas); err != nil {
+		log.Fatal(err)
+	}
+	_, err = fmt.Fprint(buffer, res.String())
+	if err != nil {
+		log.Fatal(err)
 	}
 	err = printToFileWithFmt(buffer, generatedFile)
 	if err != nil {

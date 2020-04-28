@@ -102,6 +102,7 @@ func Test_Wikipedia(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			Wikipedia.isBuilt = false
 			got, err := Wikipedia.Translate(tt.in)
 			if err != nil {
 				t.Errorf("Wikipedia get an err:\n%v", err)

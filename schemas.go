@@ -51,3 +51,8 @@ var Wikipedia = &Schema{
 		"ый": "y",
 	},
 }
+
+// SchemaMapping mapping of all schemas
+var SchemaMapping = map[string]*Schema{
+	"wikipedia": Wikipedia,
+}

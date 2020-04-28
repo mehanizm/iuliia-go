@@ -38,6 +38,12 @@ func main() {
 go get github.com/mehanizm/iuliia-go
 ```
 
+You can add new schema to `schemas` folder. After that you should generate code for that:
+
+```sh
+go generate
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
