@@ -787,6 +787,189 @@ func Test_Iso_9_1968_alt(t *testing.T) {
 	}
 }
 
+// Mosmetro schema
+func Test_Mosmetro(t *testing.T) {
+	tests := []struct {
+		name string
+		in   string
+		out  string
+	}{
+		{
+			name: "0",
+			in:   "Юлия, съешь ещё этих мягких французских булок из Йошкар-Олы, да выпей алтайского чаю",
+			out:  "Yuliya, syesh esche etikh myagkikh frantsuzskikh bulok iz Yoshkar-Oly, da vypey altayskogo chayu",
+		},
+		{
+			name: "1",
+			in:   "Битцевский парк",
+			out:  "Bitsevsky park",
+		},
+		{
+			name: "2",
+			in:   "Верхние Лихоборы",
+			out:  "Verkhnie Likhobory",
+		},
+		{
+			name: "3",
+			in:   "Воробьёвы горы",
+			out:  "Vorobyovy gory",
+		},
+		{
+			name: "4",
+			in:   "Выхино",
+			out:  "Vykhino",
+		},
+		{
+			name: "5",
+			in:   "Зябликово",
+			out:  "Zyablikovo",
+		},
+		{
+			name: "6",
+			in:   "Измайловская",
+			out:  "Izmaylovskaya",
+		},
+		{
+			name: "7",
+			in:   "Кожуховская",
+			out:  "Kozhukhovskaya",
+		},
+		{
+			name: "8",
+			in:   "Крылатское",
+			out:  "Krylatskoe",
+		},
+		{
+			name: "9",
+			in:   "Марьина Роща",
+			out:  "Maryina Roscha",
+		},
+		{
+			name: "10",
+			in:   "Марьино",
+			out:  "Maryino",
+		},
+		{
+			name: "11",
+			in:   "Молодёжная",
+			out:  "Molodezhnaya",
+		},
+		{
+			name: "12",
+			in:   "Октябрьская",
+			out:  "Oktyabrskaya",
+		},
+		{
+			name: "13",
+			in:   "Ольховая",
+			out:  "Olkhovaya",
+		},
+		{
+			name: "14",
+			in:   "Парк Победы",
+			out:  "Park Pobedy",
+		},
+		{
+			name: "15",
+			in:   "Площадь Ильича",
+			out:  "Ploschad Ilyicha",
+		},
+		{
+			name: "16",
+			in:   "Площадь Революции",
+			out:  "Ploschad Revolyutsii",
+		},
+		{
+			name: "17",
+			in:   "Пятницкое шоссе",
+			out:  "Pyatnitskoe shosse",
+		},
+		{
+			name: "18",
+			in:   "Румянцево",
+			out:  "Rumyantsevo",
+		},
+		{
+			name: "19",
+			in:   "Саларьево",
+			out:  "Salaryevo",
+		},
+		{
+			name: "20",
+			in:   "Семёновская",
+			out:  "Semenovskaya",
+		},
+		{
+			name: "21",
+			in:   "Сходненская",
+			out:  "Skhodnenskaya",
+		},
+		{
+			name: "22",
+			in:   "Текстильщики",
+			out:  "Tekstilschiki",
+		},
+		{
+			name: "23",
+			in:   "Тёплый стан",
+			out:  "Teply stan",
+		},
+		{
+			name: "24",
+			in:   "Третьяковская",
+			out:  "Tretyakovskaya",
+		},
+		{
+			name: "25",
+			in:   "Тропарёво",
+			out:  "Troparevo",
+		},
+		{
+			name: "26",
+			in:   "Фонвизинская",
+			out:  "Fonvizinskaya",
+		},
+		{
+			name: "27",
+			in:   "Чистые пруды",
+			out:  "Chistye prudy",
+		},
+		{
+			name: "28",
+			in:   "Шоссе Энтузиастов",
+			out:  "Shosse Entuziastov",
+		},
+		{
+			name: "29",
+			in:   "Щёлковская",
+			out:  "Schelkovskaya",
+		},
+		{
+			name: "30",
+			in:   "Электрозаводская",
+			out:  "Elektrozavodskaya",
+		},
+		{
+			name: "31",
+			in:   "Юго-Западная",
+			out:  "Yugo-Zapadnaya",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Mosmetro.isBuilt = false
+			got, err := Mosmetro.Translate(tt.in)
+			if err != nil {
+				t.Errorf("Mosmetro get an err:\n%v", err)
+			}
+			if got != tt.out {
+				fmt.Println(Mosmetro)
+				t.Errorf("Mosmetro got:\n%v\nbut want:\n%v\n", got, tt.out)
+			}
+		})
+	}
+}
+
 // Mvd_310 schema
 func Test_Mvd_310(t *testing.T) {
 	tests := []struct {

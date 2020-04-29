@@ -36,6 +36,7 @@ var schemaTpl = template.Must(template.New("schemaTpl").Funcs(funcMap).Parse(`
 // {{ .URL }}
 var {{ .GetName }} = &Schema{
 	Name: "{{ .Name }}",
+	Desc: "{{ .Desc }}",
 	Mapping: map[string]string{
 		{{- range $key, $value := .Mapping }}
 		"{{ escape $key }}": "{{ escape $value }}",
