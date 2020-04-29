@@ -106,3 +106,27 @@ func Test_letterReader_readLetters(t *testing.T) {
 		})
 	}
 }
+
+func TestSchemaPrinter(t *testing.T) {
+	tests := []struct {
+		name    string
+		schemas map[string]*Schema
+		want    string
+	}{
+		{
+			name: "simple positive",
+			schemas: map[string]*Schema{
+				"test schema":   {Name: "schema name", Desc: "schema desc"},
+				"a test schema": {Name: "a test schema", Desc: "schema desc"},
+			},
+			want: "a test schema:       schema desc\nschema name:         schema desc\n",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := SchemaPrinter(tt.schemas); got != tt.want {
+				t.Errorf("\nSchemaPrinter():\n%v\nwant:\n%v", got, tt.want)
+			}
+		})
+	}
+}

@@ -1,7 +1,10 @@
 package iuliia
 
 import (
+	"fmt"
 	"io"
+	"sort"
+	"strings"
 	"unicode"
 	"unicode/utf8"
 )
@@ -72,4 +75,28 @@ func (lr *letterReader) readLetters() (rune, rune, rune, error) {
 	}
 	lr.index++
 	return lr.wordInRune[lr.index-2], lr.wordInRune[lr.index-1], lr.wordInRune[lr.index], nil
+}
+
+// SchemaPrinter prints schemas line by line
+func SchemaPrinter(schemas map[string]*Schema) string {
+	res := strings.Builder{}
+	sortedKeys := make([]string, 0, len(schemas))
+	for k := range schemas {
+		sortedKeys = append(sortedKeys, k)
+	}
+	sort.Strings(sortedKeys)
+	for _, schemaName := range sortedKeys {
+		schema := schemas[schemaName]
+		num := 20 - utf8.RuneCountInString(schema.Name)
+		res.WriteString(
+			fmt.Sprintf(
+				"%s:%s%s\n",
+				schema.Name,
+				strings.Repeat(" ", num),
+				schema.Desc,
+			),
+		)
+
+	}
+	return res.String()
 }
