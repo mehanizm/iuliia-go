@@ -153,12 +153,12 @@ func (s *Schema) Translate(source string) (string, error) {
 		s.build()
 	}
 	translated := make([]string, 0)
-	for _, word := range strings.Split(source, " ") {
+	for _, word := range splitSentence(source) {
 		translatedWord, err := s.translateWord(word)
 		if err != nil {
 			return "", err
 		}
 		translated = append(translated, translatedWord)
 	}
-	return strings.Join(translated, " "), nil
+	return strings.Join(translated, ""), nil
 }

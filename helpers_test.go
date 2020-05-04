@@ -1,8 +1,35 @@
 package iuliia
 
 import (
+	"reflect"
 	"testing"
 )
+
+func Test_splitSentence(t *testing.T) {
+	tests := []struct {
+		name   string
+		source string
+		want   []string
+	}{
+		{
+			"1", "Hello, mankind!", []string{"Hello", ", ", "mankind", "!"},
+		},
+		{
+			"2", "Привет, человечество!", []string{"Привет", ", ", "человечество", "!"},
+		},
+		{
+			"3", "(привет) (привет...) привет? а", []string{"(", "привет", ") (", "привет", "...) ", "привет", "? ", "а"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := splitSentence(tt.source)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Test_splitSentence() got = %#v, want %#v", got, tt.want)
+			}
+		})
+	}
+}
 
 func Test_splitWord(t *testing.T) {
 	tests := []struct {
