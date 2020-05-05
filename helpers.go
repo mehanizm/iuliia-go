@@ -3,11 +3,45 @@ package iuliia
 import (
 	"fmt"
 	"io"
+	"regexp"
 	"sort"
 	"strings"
 	"unicode"
 	"unicode/utf8"
 )
+
+// non-letter regex
+var splitter = regexp.MustCompile(`\P{L}+`)
+
+// splitSentence splits sentence by word boundaries.
+// Returns words slice consisting of words and separators,
+// ordered according to original sentence.
+func splitSentence(source string) []string {
+	// Go does not support unicode word boundaries in regexes (\b)
+	// and it also does not support lookaheads (?=), which can emulate boundaries
+	// so we have to reinvent the weel in such a creative way
+	indexes := splitter.FindAllStringIndex(source, -1)
+	idx := 0
+	var words []string
+	for _, boundary := range indexes {
+		word := source[idx:boundary[0]]
+		words = appendNonEmptyWord(words, word)
+		separator := source[boundary[0]:boundary[1]]
+		words = appendNonEmptyWord(words, separator)
+		idx = boundary[1]
+	}
+	words = appendNonEmptyWord(words, source[idx:len(source)])
+	return words
+}
+
+// appendNonEmptyWord appends word to words slice if the word is not empty.
+// Returns modified (or non-modified) words slice.
+func appendNonEmptyWord(words []string, word string) []string {
+	if word == "" {
+		return words
+	}
+	return append(words, word)
+}
 
 // splitWord to stem and ending
 func splitWord(word string) (string, string) {
