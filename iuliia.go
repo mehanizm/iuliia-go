@@ -153,7 +153,7 @@ func (s *Schema) Translate(source string) (string, error) {
 		s.build()
 	}
 	translated := make([]string, 0)
-	for _, word := range splitSentence(source) {
+	for _, word := range splitSentenceFields(source) {
 		translatedWord, err := s.translateWord(word)
 		if err != nil {
 			return "", err
