@@ -25,9 +25,7 @@ func Test_splitSentence(t *testing.T) {
 		name string
 		fun  func(source string) []string
 	}{
-		{"regex", splitSentenceRegex},
-		{"unicode", splitSentenceUnicode},
-		{"fields", splitSentenceFields},
+		{"regex", splitSentence},
 	}
 	for _, tt := range tests {
 		for _, fun := range funcs {
