@@ -1,7 +1,6 @@
 // Package iuliia do not edit, generated file
 package iuliia
 
-// Ala_lc schema
 // ALA-LC transliteration schema.
 // https://dangry.ru/iuliia/ala-lc/
 var Ala_lc = &Schema{
@@ -47,7 +46,6 @@ var Ala_lc = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Ala_lc_alt schema
 // ALA-LC transliteration schema.
 // https://dangry.ru/iuliia/ala-lc/
 var Ala_lc_alt = &Schema{
@@ -93,7 +91,6 @@ var Ala_lc_alt = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Bgn_pcgn schema
 // BGN/PCGN transliteration schema
 // https://dangry.ru/iuliia/bgn-pcgn/
 var Bgn_pcgn = &Schema{
@@ -209,7 +206,6 @@ var Bgn_pcgn = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Bgn_pcgn_alt schema
 // BGN/PCGN transliteration schema
 // https://dangry.ru/iuliia/bgn-pcgn/
 var Bgn_pcgn_alt = &Schema{
@@ -284,7 +280,6 @@ var Bgn_pcgn_alt = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Bs_2979 schema
 // British Standard 2979:1958 transliteration schema
 // https://dangry.ru/iuliia/bs-2979/
 var Bs_2979 = &Schema{
@@ -333,7 +328,6 @@ var Bs_2979 = &Schema{
 	},
 }
 
-// Bs_2979_alt schema
 // British Standard 2979:1958 transliteration schema
 // https://dangry.ru/iuliia/bs-2979/
 var Bs_2979_alt = &Schema{
@@ -382,7 +376,6 @@ var Bs_2979_alt = &Schema{
 	},
 }
 
-// Gost_16876 schema
 // GOST 16876-71 (aka GOST 1983) transliteration schema
 // https://dangry.ru/iuliia/gost-16876/
 var Gost_16876 = &Schema{
@@ -428,7 +421,6 @@ var Gost_16876 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Gost_16876_alt schema
 // GOST 16876-71 (aka GOST 1983) transliteration schema
 // https://dangry.ru/iuliia/gost-16876/
 var Gost_16876_alt = &Schema{
@@ -474,7 +466,6 @@ var Gost_16876_alt = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Gost_52290 schema
 // GOST R 52290-2004 transliteration schema
 // https://dangry.ru/iuliia/gost-52290/
 var Gost_52290 = &Schema{
@@ -558,7 +549,6 @@ var Gost_52290 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Gost_52535 schema
 // GOST R 52535.1-2006 transliteration schema
 // http://localhost:3000/iuliia/gost-52535/
 var Gost_52535 = &Schema{
@@ -604,7 +594,6 @@ var Gost_52535 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Gost_7034 schema
 // GOST R 7.0.34-2014 transliteration schema
 // http://localhost:3000/iuliia/gost-7034/
 var Gost_7034 = &Schema{
@@ -650,7 +639,6 @@ var Gost_7034 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Gost_779 schema
 // GOST 7.79-2000 (aka ISO 9:1995) transliteration schema
 // https://dangry.ru/iuliia/gost-779/
 var Gost_779 = &Schema{
@@ -696,7 +684,6 @@ var Gost_779 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Gost_779_alt schema
 // GOST 7.79-2000 (aka ISO 9:1995) transliteration schema
 // https://dangry.ru/iuliia/gost-779/
 var Gost_779_alt = &Schema{
@@ -747,7 +734,6 @@ var Gost_779_alt = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Icao_doc_9303 schema
 // ICAO DOC 9303 transliteration schema
 // https://dangry.ru/iuliia/icao-doc-9303/
 var Icao_doc_9303 = &Schema{
@@ -793,7 +779,6 @@ var Icao_doc_9303 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Iso_9_1954 schema
 // ISO/R 9:1954 transliteration schema
 // https://dangry.ru/iuliia/iso-9-1954/
 var Iso_9_1954 = &Schema{
@@ -839,7 +824,6 @@ var Iso_9_1954 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Iso_9_1968 schema
 // ISO/R 9:1968 transliteration schema
 // https://dangry.ru/iuliia/iso-9-1968/
 var Iso_9_1968 = &Schema{
@@ -885,7 +869,6 @@ var Iso_9_1968 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Iso_9_1968_alt schema
 // ISO/R 9:1968 transliteration schema
 // https://dangry.ru/iuliia/iso-9-1968/
 var Iso_9_1968_alt = &Schema{
@@ -931,9 +914,8 @@ var Iso_9_1968_alt = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Mosmetro schema
 // Moscow Metro map transliteration schema
-// https://dangry.ru/iuliia/metro-map/
+// https://dangry.ru/iuliia/mosmetro/
 var Mosmetro = &Schema{
 	Name: "mosmetro",
 	Desc: "Moscow Metro map transliteration schema",
@@ -999,7 +981,6 @@ var Mosmetro = &Schema{
 	},
 }
 
-// Mvd_310 schema
 // MVD 310-1997 transliteration schema
 // https://dangry.ru/iuliia/mvd-310/
 var Mvd_310 = &Schema{
@@ -1051,7 +1032,6 @@ var Mvd_310 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Mvd_310_fr schema
 // MVD 310-1997 transliteration schema
 // https://dangry.ru/iuliia/mvd-310/
 var Mvd_310_fr = &Schema{
@@ -1107,7 +1087,6 @@ var Mvd_310_fr = &Schema{
 	},
 }
 
-// Mvd_782 schema
 // MVD 782-2000 transliteration schema
 // https://dangry.ru/iuliia/mvd-782/
 var Mvd_782 = &Schema{
@@ -1193,7 +1172,6 @@ var Mvd_782 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Scientific schema
 // Scientific transliteration schema
 // https://dangry.ru/iuliia/scientific/
 var Scientific = &Schema{
@@ -1239,7 +1217,6 @@ var Scientific = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Telegram schema
 // Telegram transliteration schema
 // https://dangry.ru/iuliia/telegram/
 var Telegram = &Schema{
@@ -1285,7 +1262,6 @@ var Telegram = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Ungegn_1987 schema
 // UNGEGN 1987 V/18 transliteration schema
 // https://dangry.ru/iuliia/ungegn-1987/
 var Ungegn_1987 = &Schema{
@@ -1331,7 +1307,6 @@ var Ungegn_1987 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
-// Wikipedia schema
 // Wikipedia transliteration schema
 // https://dangry.ru/iuliia/wikipedia/
 var Wikipedia = &Schema{
@@ -1404,7 +1379,6 @@ var Wikipedia = &Schema{
 	},
 }
 
-// Yandex_maps schema
 // Yandex.Maps transliteration schema
 // https://dangry.ru/iuliia/yandex-maps/
 var Yandex_maps = &Schema{
@@ -1454,7 +1428,6 @@ var Yandex_maps = &Schema{
 	},
 }
 
-// Yandex_money schema
 // Yandex.Money transliteration schema
 // https://dangry.ru/iuliia/yandex-money/
 var Yandex_money = &Schema{

@@ -31,7 +31,6 @@ var funcMap = template.FuncMap{
 }
 
 var schemaTpl = template.Must(template.New("schemaTpl").Funcs(funcMap).Parse(`
-// {{ .GetName }} schema
 // {{ .Desc }}
 // {{ .URL }}
 var {{ .GetName }} = &Schema{
