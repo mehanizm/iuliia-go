@@ -16,7 +16,8 @@ func isLetter(c rune) bool {
 // splitSentence splits the sentences
 // by only the words and non-words correctly
 func splitSentence(source string) []string {
-	chunks := make([]int, 1)
+	// first element "0" already in the slice
+	chunks := make([]int, 1, 32)
 
 	wasLetter := false
 	for i, rune := range source {
@@ -35,9 +36,8 @@ func splitSentence(source string) []string {
 		}
 	}
 
-	if chunks[len(chunks)-1] != len(source) {
-		chunks = append(chunks, len(source))
-	}
+	// add last element
+	chunks = append(chunks, len(source))
 
 	res := make([]string, len(chunks)-1)
 	for i := 0; i < len(chunks)-1; i++ {
