@@ -12,10 +12,30 @@ func isCyrillic(c rune) bool {
 	return unicode.Is(unicode.Cyrillic, c)
 }
 
+<<<<<<< HEAD
 // splitSentence splits the sentences
 // by only the words and non-words correctly
 func splitSentence(source string) []string {
 	// first element "0" already in the slice
+=======
+func notLetter(c rune) bool {
+	return !unicode.IsLetter(c)
+}
+
+func isLetter(c rune) bool {
+	return unicode.IsLetter(c)
+}
+
+func splitSentenceUnicode(source string) []string {
+	words := strings.FieldsFunc(source, notLetter)
+	notWords := strings.FieldsFunc(source, isLetter)
+	isFirstLetter := isLetter([]rune(source)[0])
+
+	return merge(words, notWords, isFirstLetter)
+}
+
+func splitSentenceFields(source string) []string {
+>>>>>>> 0cab37d... impr: use different string size in benchmark
 	chunks := make([]int, 1, 32)
 
 	wasLetter := false
@@ -35,7 +55,10 @@ func splitSentence(source string) []string {
 		}
 	}
 
+<<<<<<< HEAD
 	// add last element
+=======
+>>>>>>> 0cab37d... impr: use different string size in benchmark
 	chunks = append(chunks, len(source))
 
 	res := make([]string, len(chunks)-1)
