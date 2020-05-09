@@ -163,7 +163,7 @@ func printToFileWithFmt(buffer *bytes.Buffer, fileToWrite *os.File) error {
 	if err != nil {
 		return fmt.Errorf("error in go formatting: %w", err)
 	}
-	_, err = fmt.Fprintf(fileToWrite, "%s", formatted)
+	_, err = fmt.Fprintln(fileToWrite, string(formatted))
 	if err != nil {
 		return err
 	}

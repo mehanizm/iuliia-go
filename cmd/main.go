@@ -30,7 +30,8 @@ func main() {
 	}
 	schema, schemaExist := iuliia.SchemaMapping[schemaName]
 	if !schemaExist {
-		fmt.Printf("schema name %v does not exist\nto see all schemas --show\n", schemaName)
+		fmt.Printf("schema name %v does not exist\n", schemaName)
+		fmt.Printf("to see all schemas --show\n")
 		return
 	}
 
@@ -57,7 +58,8 @@ LOOP:
 			newSchemaName := strings.TrimSuffix(strings.Split(string(sentence), " ")[1], "\n")
 			newSchema, schemaExist := iuliia.SchemaMapping[newSchemaName]
 			if !schemaExist {
-				fmt.Printf("schema name %v does not exist\nto see all schemas type 'show'\n\n", newSchemaName)
+				fmt.Printf("schema name %v does not exist", newSchemaName)
+				fmt.Printf("to see all schemas type 'show'\n\n")
 				continue LOOP
 			}
 			fmt.Printf("schema was changed to %v\n\n", newSchemaName)
