@@ -7,7 +7,6 @@
 package iuliia
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -80,81 +79,78 @@ func (s *Schema) build() *Schema {
 
 // translateLetter translates one letter
 // with respect to neighbors
-func (s *Schema) translateLetter(in []rune) string {
+func (s *Schema) translateLetter(res *strings.Builder, in []rune) {
 	if translated, existInPrev := s.PrevMapping[strings.Trim(string(in[:2]), string(rune(0)))]; existInPrev {
-		return translated
+		res.WriteString(translated)
+		return
 	}
 	if translated, existInNext := s.NextMapping[strings.Trim(string(in[1:]), string(rune(0)))]; existInNext {
-		return translated
+		res.WriteString(translated)
+		return
 	}
 	if translated, existInCurr := s.Mapping[string(in[1])]; existInCurr {
-		return translated
+		res.WriteString(translated)
+		return
 	}
-	return string(in[1])
+	res.WriteString(string(in[1]))
+	return
 }
 
 // transalteEnding translates ending of the word
 // return result and true if ending was translated
 // return result and false if there is no ending in the schema
-func (s *Schema) translateEnding(ending string) (string, bool) {
+func (s *Schema) translateEnding(res *strings.Builder, ending string) bool {
 	if translated, existInEnding := s.EndingMapping[ending]; existInEnding {
-		return translated, true
+		res.WriteString(translated)
+		return true
 	}
-	return ending, false
+	res.WriteString(ending)
+	return false
+}
+
+func (s *Schema) endingExist(ending string) bool {
+	_, existInEnding := s.EndingMapping[ending]
+	return existInEnding
 }
 
 // translateLetters translates stem of the word
-func (s *Schema) translateLetters(word string) (string, error) {
-	var res strings.Builder
+func (s *Schema) translateLetters(res *strings.Builder, word string) {
 	for _, letters := range readLetters(word) {
-		_, err := res.WriteString(s.translateLetter(letters))
-		if err != nil {
-			return "", fmt.Errorf("error in writing string: %w", err)
-		}
+		s.translateLetter(res, letters)
 	}
-	return res.String(), nil
 }
 
 // translateWord split the input
 // word to stem and ending
 // Translate parts and combine result
-func (s *Schema) translateWord(word string) (string, error) {
+func (s *Schema) translateWord(res *strings.Builder, word string) {
 	if word == "" {
-		return word, nil
+		return
 	}
 	if !isCyrillic([]rune(word)[0]) {
-		return word, nil
+		res.WriteString(word)
+		return
 	}
 	stem, ending := splitWord(word)
-	translatedEnding, isEndingTranslated := s.translateEnding(ending)
-	if isEndingTranslated {
-		translatedStem, err := s.translateLetters(stem)
-		if err != nil {
-			return "", err
-		}
-		return translatedStem + translatedEnding, nil
+	if s.endingExist(ending) {
+		s.translateLetters(res, stem)
+		s.translateEnding(res, ending)
+		return
 	}
-	translatedWord, err := s.translateLetters(word)
-	if err != nil {
-		return "", err
-	}
-	return translatedWord, nil
+	s.translateLetters(res, word)
+	return
 }
 
 // Translate translates input strings with schema
 // return error if any of the word
 // was translated with error
-func (s *Schema) Translate(source string) (string, error) {
+func (s *Schema) Translate(source string) string {
 	if !s.isBuilt {
 		s.build()
 	}
-	translated := make([]string, 0)
+	var res strings.Builder
 	for _, word := range splitSentence(source) {
-		translatedWord, err := s.translateWord(word)
-		if err != nil {
-			return "", err
-		}
-		translated = append(translated, translatedWord)
+		s.translateWord(&res, word)
 	}
-	return strings.Join(translated, ""), nil
+	return res.String()
 }

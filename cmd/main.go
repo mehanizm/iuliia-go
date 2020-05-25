@@ -66,7 +66,7 @@ LOOP:
 			schemaName = newSchemaName
 			schema = newSchema
 		default:
-			translated, err := schema.Translate(string(sentence))
+			translated := schema.Translate(string(sentence))
 			if err != nil {
 				fmt.Println("error in translating: ", err)
 				fmt.Println("try again")

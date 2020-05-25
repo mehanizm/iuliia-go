@@ -77,10 +77,7 @@ func Test_{{ .GetName }}(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			{{ .GetName }}.isBuilt = false
-			got, err := {{ .GetName }}.Translate(tt.in)
-			if err != nil {
-				t.Errorf("{{ .GetName }} get an err:\n%v", err)
-			}
+			got := {{ .GetName }}.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println({{ .GetName }})
 				t.Errorf("{{ .GetName }} got:\n%v\nbut want:\n%v\n", got, tt.out)

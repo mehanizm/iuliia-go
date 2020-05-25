@@ -1,6 +1,7 @@
 package iuliia
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -12,43 +13,41 @@ func TestSchema_translateWord(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "1",
-			in:      "Миша",
-			out:     "Misha",
-			wantErr: false,
+			name: "1",
+			in:   "Миша",
+			out:  "Misha",
 		},
 		{
-			name:    "2",
-			in:      "съешь",
-			out:     "syesh",
-			wantErr: false,
+			name: "2",
+			in:   "съешь",
+			out:  "syesh",
 		},
 		{
-			name:    "3",
-			in:      "ещё",
-			out:     "yeshchyo",
-			wantErr: false,
+			name: "3",
+			in:   "ещё",
+			out:  "yeshchyo",
 		},
 		{
-			name:    "with ending",
-			in:      "старый",
-			out:     "stary",
-			wantErr: false,
+			name: "with ending",
+			in:   "старый",
+			out:  "stary",
 		},
 		{
-			name:    "special",
-			in:      "Ё",
-			out:     "Yo",
-			wantErr: false,
+			name: "special",
+			in:   "Ё",
+			out:  "Yo",
+		},
+		{
+			name: "empty",
+			in:   "",
+			out:  "",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Wikipedia.build().translateWord(tt.in)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Schema.translateWord() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			var res strings.Builder
+			Wikipedia.build().translateWord(&res, tt.in)
+			got := res.String()
 			if got != tt.out {
 				t.Errorf("Schema.translateWord() = %v, want %v", got, tt.out)
 			}
@@ -83,14 +82,17 @@ func TestSchema_translateLetter(t *testing.T) {
 			"y",
 		},
 		{
-			"next mapping",
+			"special",
 			[]rune{rune(0), 'Ё', rune(0)},
 			"Yo",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Wikipedia.build().translateLetter(tt.args); got != tt.want {
+			var res strings.Builder
+			Wikipedia.build().translateLetter(&res, tt.args)
+			got := res.String()
+			if got != tt.want {
 				t.Errorf("Schema.translateLetter() = %v, want %v", got, tt.want)
 			}
 		})
@@ -119,12 +121,11 @@ func TestSchema_translateEnding(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, wantBool := Wikipedia.build().translateEnding(tt.ending)
+			var res strings.Builder
+			Wikipedia.build().translateEnding(&res, tt.ending)
+			got := res.String()
 			if got != tt.want {
 				t.Errorf("Schema.translateEnding() got = %v, want %v", got, tt.want)
-			}
-			if wantBool != tt.wantBool {
-				t.Errorf("Schema.translateEnding() got1 = %v, want %v", wantBool, tt.wantBool)
 			}
 		})
 	}

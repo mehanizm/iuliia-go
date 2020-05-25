@@ -8,10 +8,6 @@ import (
 	"unicode/utf8"
 )
 
-func isLetter(c rune) bool {
-	return unicode.IsLetter(c)
-}
-
 func isCyrillic(c rune) bool {
 	return unicode.Is(unicode.Cyrillic, c)
 }

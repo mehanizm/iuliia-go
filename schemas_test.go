@@ -22,10 +22,7 @@ func Test_Ala_lc(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Ala_lc.isBuilt = false
-			got, err := Ala_lc.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Ala_lc get an err:\n%v", err)
-			}
+			got := Ala_lc.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Ala_lc)
 				t.Errorf("Ala_lc got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -50,10 +47,7 @@ func Test_Ala_lc_alt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Ala_lc_alt.isBuilt = false
-			got, err := Ala_lc_alt.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Ala_lc_alt get an err:\n%v", err)
-			}
+			got := Ala_lc_alt.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Ala_lc_alt)
 				t.Errorf("Ala_lc_alt got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -203,10 +197,7 @@ func Test_Bgn_pcgn(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Bgn_pcgn.isBuilt = false
-			got, err := Bgn_pcgn.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Bgn_pcgn get an err:\n%v", err)
-			}
+			got := Bgn_pcgn.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Bgn_pcgn)
 				t.Errorf("Bgn_pcgn got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -356,10 +347,7 @@ func Test_Bgn_pcgn_alt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Bgn_pcgn_alt.isBuilt = false
-			got, err := Bgn_pcgn_alt.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Bgn_pcgn_alt get an err:\n%v", err)
-			}
+			got := Bgn_pcgn_alt.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Bgn_pcgn_alt)
 				t.Errorf("Bgn_pcgn_alt got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -384,10 +372,7 @@ func Test_Bs_2979(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Bs_2979.isBuilt = false
-			got, err := Bs_2979.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Bs_2979 get an err:\n%v", err)
-			}
+			got := Bs_2979.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Bs_2979)
 				t.Errorf("Bs_2979 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -412,10 +397,7 @@ func Test_Bs_2979_alt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Bs_2979_alt.isBuilt = false
-			got, err := Bs_2979_alt.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Bs_2979_alt get an err:\n%v", err)
-			}
+			got := Bs_2979_alt.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Bs_2979_alt)
 				t.Errorf("Bs_2979_alt got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -440,10 +422,7 @@ func Test_Gost_16876(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_16876.isBuilt = false
-			got, err := Gost_16876.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_16876 get an err:\n%v", err)
-			}
+			got := Gost_16876.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_16876)
 				t.Errorf("Gost_16876 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -468,10 +447,7 @@ func Test_Gost_16876_alt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_16876_alt.isBuilt = false
-			got, err := Gost_16876_alt.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_16876_alt get an err:\n%v", err)
-			}
+			got := Gost_16876_alt.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_16876_alt)
 				t.Errorf("Gost_16876_alt got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -506,10 +482,7 @@ func Test_Gost_52290(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_52290.isBuilt = false
-			got, err := Gost_52290.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_52290 get an err:\n%v", err)
-			}
+			got := Gost_52290.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_52290)
 				t.Errorf("Gost_52290 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -539,10 +512,7 @@ func Test_Gost_52535(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_52535.isBuilt = false
-			got, err := Gost_52535.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_52535 get an err:\n%v", err)
-			}
+			got := Gost_52535.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_52535)
 				t.Errorf("Gost_52535 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -567,10 +537,7 @@ func Test_Gost_7034(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_7034.isBuilt = false
-			got, err := Gost_7034.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_7034 get an err:\n%v", err)
-			}
+			got := Gost_7034.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_7034)
 				t.Errorf("Gost_7034 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -595,10 +562,7 @@ func Test_Gost_779(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_779.isBuilt = false
-			got, err := Gost_779.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_779 get an err:\n%v", err)
-			}
+			got := Gost_779.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_779)
 				t.Errorf("Gost_779 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -623,10 +587,7 @@ func Test_Gost_779_alt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Gost_779_alt.isBuilt = false
-			got, err := Gost_779_alt.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Gost_779_alt get an err:\n%v", err)
-			}
+			got := Gost_779_alt.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Gost_779_alt)
 				t.Errorf("Gost_779_alt got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -691,10 +652,7 @@ func Test_Icao_doc_9303(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Icao_doc_9303.isBuilt = false
-			got, err := Icao_doc_9303.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Icao_doc_9303 get an err:\n%v", err)
-			}
+			got := Icao_doc_9303.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Icao_doc_9303)
 				t.Errorf("Icao_doc_9303 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -719,10 +677,7 @@ func Test_Iso_9_1954(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Iso_9_1954.isBuilt = false
-			got, err := Iso_9_1954.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Iso_9_1954 get an err:\n%v", err)
-			}
+			got := Iso_9_1954.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Iso_9_1954)
 				t.Errorf("Iso_9_1954 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -747,10 +702,7 @@ func Test_Iso_9_1968(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Iso_9_1968.isBuilt = false
-			got, err := Iso_9_1968.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Iso_9_1968 get an err:\n%v", err)
-			}
+			got := Iso_9_1968.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Iso_9_1968)
 				t.Errorf("Iso_9_1968 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -775,10 +727,7 @@ func Test_Iso_9_1968_alt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Iso_9_1968_alt.isBuilt = false
-			got, err := Iso_9_1968_alt.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Iso_9_1968_alt get an err:\n%v", err)
-			}
+			got := Iso_9_1968_alt.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Iso_9_1968_alt)
 				t.Errorf("Iso_9_1968_alt got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -958,10 +907,7 @@ func Test_Mosmetro(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Mosmetro.isBuilt = false
-			got, err := Mosmetro.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Mosmetro get an err:\n%v", err)
-			}
+			got := Mosmetro.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Mosmetro)
 				t.Errorf("Mosmetro got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1001,10 +947,7 @@ func Test_Mvd_310(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Mvd_310.isBuilt = false
-			got, err := Mvd_310.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Mvd_310 get an err:\n%v", err)
-			}
+			got := Mvd_310.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Mvd_310)
 				t.Errorf("Mvd_310 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1054,10 +997,7 @@ func Test_Mvd_310_fr(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Mvd_310_fr.isBuilt = false
-			got, err := Mvd_310_fr.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Mvd_310_fr get an err:\n%v", err)
-			}
+			got := Mvd_310_fr.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Mvd_310_fr)
 				t.Errorf("Mvd_310_fr got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1117,10 +1057,7 @@ func Test_Mvd_782(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Mvd_782.isBuilt = false
-			got, err := Mvd_782.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Mvd_782 get an err:\n%v", err)
-			}
+			got := Mvd_782.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Mvd_782)
 				t.Errorf("Mvd_782 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1145,10 +1082,7 @@ func Test_Scientific(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Scientific.isBuilt = false
-			got, err := Scientific.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Scientific get an err:\n%v", err)
-			}
+			got := Scientific.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Scientific)
 				t.Errorf("Scientific got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1173,10 +1107,7 @@ func Test_Telegram(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Telegram.isBuilt = false
-			got, err := Telegram.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Telegram get an err:\n%v", err)
-			}
+			got := Telegram.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Telegram)
 				t.Errorf("Telegram got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1206,10 +1137,7 @@ func Test_Ungegn_1987(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Ungegn_1987.isBuilt = false
-			got, err := Ungegn_1987.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Ungegn_1987 get an err:\n%v", err)
-			}
+			got := Ungegn_1987.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Ungegn_1987)
 				t.Errorf("Ungegn_1987 got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1314,10 +1242,7 @@ func Test_Wikipedia(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Wikipedia.isBuilt = false
-			got, err := Wikipedia.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Wikipedia get an err:\n%v", err)
-			}
+			got := Wikipedia.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Wikipedia)
 				t.Errorf("Wikipedia got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1372,10 +1297,7 @@ func Test_Yandex_maps(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Yandex_maps.isBuilt = false
-			got, err := Yandex_maps.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Yandex_maps get an err:\n%v", err)
-			}
+			got := Yandex_maps.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Yandex_maps)
 				t.Errorf("Yandex_maps got:\n%v\nbut want:\n%v\n", got, tt.out)
@@ -1415,10 +1337,7 @@ func Test_Yandex_money(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Yandex_money.isBuilt = false
-			got, err := Yandex_money.Translate(tt.in)
-			if err != nil {
-				t.Errorf("Yandex_money get an err:\n%v", err)
-			}
+			got := Yandex_money.Translate(tt.in)
 			if got != tt.out {
 				fmt.Println(Yandex_money)
 				t.Errorf("Yandex_money got:\n%v\nbut want:\n%v\n", got, tt.out)
