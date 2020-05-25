@@ -4,32 +4,6 @@ import (
 	"testing"
 )
 
-func Test_Schema_translateLetter(t *testing.T) {
-	type args struct {
-		prev rune
-		curr rune
-		next rune
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{
-			"1",
-			args{'М', 'и', 'ш'},
-			"i",
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := Wikipedia.build().translateLetter(tt.args.prev, tt.args.curr, tt.args.next); got != tt.want {
-				t.Errorf("Schema.translateLetter() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestSchema_translateWord(t *testing.T) {
 	tests := []struct {
 		name    string
@@ -61,6 +35,12 @@ func TestSchema_translateWord(t *testing.T) {
 			out:     "stary",
 			wantErr: false,
 		},
+		{
+			name:    "special",
+			in:      "Ё",
+			out:     "Yo",
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -77,40 +57,40 @@ func TestSchema_translateWord(t *testing.T) {
 }
 
 func TestSchema_translateLetter(t *testing.T) {
-	type args struct {
-		prev rune
-		curr rune
-		next rune
-	}
 	tests := []struct {
 		name string
-		args args
+		args []rune
 		want string
 	}{
 		{
 			"current",
-			args{'ъ', 'е', 'ш'},
+			[]rune{'ъ', 'е', 'ш'},
 			"ye",
 		},
 		{
 			"prev mapping",
-			args{rune(0), 'е', 'щ'},
+			[]rune{rune(0), 'е', 'щ'},
 			"ye",
 		},
 		{
 			"not cyrillic",
-			args{rune(0), '😁', rune(0)},
+			[]rune{rune(0), '😁', rune(0)},
 			"😁",
 		},
 		{
 			"next mapping",
-			args{rune(0), 'ь', 'а'},
+			[]rune{rune(0), 'ь', 'а'},
 			"y",
+		},
+		{
+			"next mapping",
+			[]rune{rune(0), 'Ё', rune(0)},
+			"Yo",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Wikipedia.build().translateLetter(tt.args.prev, tt.args.curr, tt.args.next); got != tt.want {
+			if got := Wikipedia.build().translateLetter(tt.args); got != tt.want {
 				t.Errorf("Schema.translateLetter() = %v, want %v", got, tt.want)
 			}
 		})

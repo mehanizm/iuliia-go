@@ -12,10 +12,10 @@ func Test_splitSentence(t *testing.T) {
 		want   []string
 	}{
 		{
-			"1", "Hello, mankind!", []string{"Hello", ", ", "mankind", "!"},
+			"1", "Hello, mankind!", []string{"Hello, mankind!"},
 		},
 		{
-			"2", "Привет, человечество!", []string{"Привет", ", ", "человечество", "!"},
+			"2", "Привет человечество!", []string{"Привет", " ", "человечество", "!"},
 		},
 		{
 			"3", "(привет) (привет...) привет? а", []string{"(", "привет", ") (", "привет", "...) ", "привет", "? ", "а"},
@@ -51,6 +51,9 @@ func Test_splitWord(t *testing.T) {
 		},
 		{
 			"2", "Ми", "Ми", "",
+		},
+		{
+			"3", "Ё", "Ё", "",
 		},
 	}
 	for _, tt := range tests {
@@ -111,31 +114,9 @@ func Test_letterReader_readLetters(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lr := newLetterReader(tt.in)
-			i := 0
-			for {
-				gotPrev, gotCurr, gotNext, gotErr := lr.readLetters()
-				expPrev := tt.out[i][0]
-				expCurr := tt.out[i][1]
-				expNext := tt.out[i][2]
-				i++
-				expErr := len(tt.out) == i
-				if (gotErr != nil) != expErr {
-					t.Errorf("letterReader.readLetters() error = %v, wantErr %v", gotErr, expErr)
-					return
-				}
-				if gotPrev != expPrev {
-					t.Errorf("letterReader.readLetters() got = %v, want %v", gotPrev, expPrev)
-				}
-				if gotCurr != expCurr {
-					t.Errorf("letterReader.readLetters() got1 = %v, want %v", gotCurr, expPrev)
-				}
-				if gotNext != expNext {
-					t.Errorf("letterReader.readLetters() got2 = %v, want %v", gotNext, expPrev)
-				}
-				if gotErr != nil {
-					return
-				}
+			res := readLetters(tt.in)
+			if !reflect.DeepEqual(res, tt.out) {
+				t.Errorf("wrong result: want: %v was: %v", tt.out, res)
 			}
 
 		})

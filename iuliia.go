@@ -8,7 +8,6 @@ package iuliia
 
 import (
 	"fmt"
-	"io"
 	"strings"
 )
 
@@ -81,18 +80,17 @@ func (s *Schema) build() *Schema {
 
 // translateLetter translates one letter
 // with respect to neighbors
-func (s *Schema) translateLetter(prev, curr, next rune) string {
-	prevPair, nextPair := getPairs(prev, curr, next)
-	if translated, existInPrev := s.PrevMapping[prevPair]; existInPrev {
+func (s *Schema) translateLetter(in []rune) string {
+	if translated, existInPrev := s.PrevMapping[strings.Trim(string(in[:2]), string(rune(0)))]; existInPrev {
 		return translated
 	}
-	if translated, existInNext := s.NextMapping[nextPair]; existInNext {
+	if translated, existInNext := s.NextMapping[strings.Trim(string(in[1:]), string(rune(0)))]; existInNext {
 		return translated
 	}
-	if translated, existInCurr := s.Mapping[string(curr)]; existInCurr {
+	if translated, existInCurr := s.Mapping[string(in[1])]; existInCurr {
 		return translated
 	}
-	return string(curr)
+	return string(in[1])
 }
 
 // transalteEnding translates ending of the word
@@ -108,27 +106,25 @@ func (s *Schema) translateEnding(ending string) (string, bool) {
 // translateLetters translates stem of the word
 func (s *Schema) translateLetters(word string) (string, error) {
 	var res strings.Builder
-	wordReader := newLetterReader(word)
-	for {
-		prev, curr, next, isLast := wordReader.readLetters()
-		_, err := res.WriteString(s.translateLetter(prev, curr, next))
-		if isLast != nil && isLast != io.EOF {
-			return res.String(), fmt.Errorf("error in reading words: %w", isLast)
-		}
+	for _, letters := range readLetters(word) {
+		_, err := res.WriteString(s.translateLetter(letters))
 		if err != nil {
-			return res.String(), fmt.Errorf("error in writing string: %w", err)
-		}
-
-		if isLast == io.EOF {
-			return res.String(), nil
+			return "", fmt.Errorf("error in writing string: %w", err)
 		}
 	}
+	return res.String(), nil
 }
 
 // translateWord split the input
 // word to stem and ending
 // Translate parts and combine result
 func (s *Schema) translateWord(word string) (string, error) {
+	if word == "" {
+		return word, nil
+	}
+	if !isCyrillic([]rune(word)[0]) {
+		return word, nil
+	}
 	stem, ending := splitWord(word)
 	translatedEnding, isEndingTranslated := s.translateEnding(ending)
 	if isEndingTranslated {

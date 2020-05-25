@@ -2,7 +2,6 @@ package iuliia
 
 import (
 	"fmt"
-	"io"
 	"sort"
 	"strings"
 	"unicode"
@@ -11,6 +10,10 @@ import (
 
 func isLetter(c rune) bool {
 	return unicode.IsLetter(c)
+}
+
+func isCyrillic(c rune) bool {
+	return unicode.Is(unicode.Cyrillic, c)
 }
 
 // splitSentence splits the sentences
@@ -22,13 +25,13 @@ func splitSentence(source string) []string {
 	wasLetter := false
 	for i, rune := range source {
 		switch {
-		case isLetter(rune) && !wasLetter:
+		case isCyrillic(rune) && !wasLetter:
 			wasLetter = true
 			if i == 0 {
 				continue
 			}
 			chunks = append(chunks, i)
-		case !isLetter(rune) && wasLetter:
+		case !isCyrillic(rune) && wasLetter:
 			wasLetter = false
 			chunks = append(chunks, i)
 		default:
@@ -43,7 +46,6 @@ func splitSentence(source string) []string {
 	for i := 0; i < len(chunks)-1; i++ {
 		res[i] = source[chunks[i]:chunks[i+1]]
 	}
-
 	return res
 }
 
@@ -65,54 +67,19 @@ func capitalize(in string) string {
 	return string(unicode.ToUpper(firstLetter)) + in[size:]
 }
 
-// getPairs convert rune triplet to two string pairs
-func getPairs(prev, curr, next rune) (prevPair string, nextPair string) {
-	if prev != rune(0) {
-		prevPair += string(prev)
+// sliding window 3 size on word
+func readLetters(in string) [][]rune {
+	if in == "" {
+		return [][]rune{make([]rune, 3)}
 	}
-	prevPair += string(curr)
-	nextPair += string(curr)
-	if next != rune(0) {
-		nextPair += string(next)
+	inRune := append([]rune(in), make([]rune, 2)...)
+	copy(inRune[1:], inRune[:])
+	inRune[0] = rune(0)
+	res := make([][]rune, 0, len(inRune)-2)
+	for i := 0; i < len(inRune)-2; i++ {
+		res = append(res, inRune[i:i+3])
 	}
-	return
-}
-
-// letterReader struct to read rune triplets
-type letterReader struct {
-	wordInRune       []rune
-	index            int
-	size             int
-	prev, curr, next string
-}
-
-// letterReader constructor
-func newLetterReader(in string) *letterReader {
-	return &letterReader{
-		wordInRune: []rune(in),
-		index:      0,
-		size:       utf8.RuneCountInString(in),
-	}
-}
-
-// readLetters reads rune triplets from string
-// return io.IOF if string is end
-func (lr *letterReader) readLetters() (rune, rune, rune, error) {
-	if lr.size == 0 {
-		return rune(0), rune(0), rune(0), io.EOF
-	}
-	if lr.size == 1 {
-		return rune(0), lr.wordInRune[0], rune(0), io.EOF
-	}
-	if lr.index == lr.size-1 {
-		return lr.wordInRune[lr.size-2], lr.wordInRune[lr.size-1], rune(0), io.EOF
-	}
-	if lr.index == 0 {
-		lr.index++
-		return rune(0), lr.wordInRune[0], lr.wordInRune[1], nil
-	}
-	lr.index++
-	return lr.wordInRune[lr.index-2], lr.wordInRune[lr.index-1], lr.wordInRune[lr.index], nil
+	return res
 }
 
 // SchemaPrinter prints schemas line by line
