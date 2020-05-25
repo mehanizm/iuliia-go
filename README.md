@@ -16,10 +16,7 @@ Transliteration means representing Cyrillic data (mainly names and geographic lo
 import iuliia "github.com/mehanizm/iuliia-go"
 
 func main() {
-    translated, err := iuliia.Wikipedia.Translate("Юлия Щеглова")
-    if err != nil {
-        log.Fatal(err)
-    }
+    translated := iuliia.Wikipedia.Translate("Юлия Щеглова")
     fmt.Println(translated)
 }
 
