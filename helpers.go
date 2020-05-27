@@ -194,3 +194,23 @@ func SchemaPrinter(schemas map[string]*Schema) string {
 	}
 	return res.String()
 }
+
+func getPairs1(in []rune) (prev, curr, next string) {
+	prev = strings.Trim(string(in[:2]), string(rune(0)))
+	next = strings.Trim(string(in[1:]), string(rune(0)))
+	curr = string(in[1])
+	return
+}
+
+func getPairs2(in []rune) (prev, curr, next string) {
+	if in[0] > rune(0) {
+		prev += string(in[0])
+	}
+	prev += string(in[1])
+	curr = string(in[1])
+	next += string(in[1])
+	if in[2] > rune(0) {
+		next += string(in[2])
+	}
+	return
+}

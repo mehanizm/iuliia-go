@@ -80,15 +80,16 @@ func (s *Schema) build() *Schema {
 // translateLetter translates one letter
 // with respect to neighbors
 func (s *Schema) translateLetter(res *strings.Builder, in []rune) {
-	if translated, existInPrev := s.PrevMapping[strings.Trim(string(in[:2]), string(rune(0)))]; existInPrev {
+	prev, curr, next := getPairs1(in)
+	if translated, existInPrev := s.PrevMapping[prev]; existInPrev {
 		res.WriteString(translated)
 		return
 	}
-	if translated, existInNext := s.NextMapping[strings.Trim(string(in[1:]), string(rune(0)))]; existInNext {
+	if translated, existInNext := s.NextMapping[next]; existInNext {
 		res.WriteString(translated)
 		return
 	}
-	if translated, existInCurr := s.Mapping[string(in[1])]; existInCurr {
+	if translated, existInCurr := s.Mapping[curr]; existInCurr {
 		res.WriteString(translated)
 		return
 	}
