@@ -149,7 +149,7 @@ func (s *Schema) Translate(source string) string {
 		s.build()
 	}
 	var res strings.Builder
-	for _, word := range splitSentence(source) {
+	for _, word := range splitSentenceUnicode(source) {
 		s.translateWord(&res, word)
 	}
 	return res.String()

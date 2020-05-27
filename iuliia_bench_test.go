@@ -24,11 +24,13 @@ func Benchmark_splitSentence(b *testing.B) {
 		{"regex", splitSentenceRegex},
 		{"unicode", splitSentenceUnicode},
 		{"fields", splitSentenceFields},
+		{"isCyrillic", splitSentence},
 	}
 	for _, funcs := range funcs {
 		for k := 0.; k <= 12; k++ {
 			n := int(math.Pow(2, k))
 			testData := prepareData(n)
+			b.ResetTimer()
 			b.Run(fmt.Sprintf("%v–n=%v", funcs.name, n), func(b *testing.B) {
 				funcs.fun(testData)
 			})

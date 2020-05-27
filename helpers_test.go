@@ -12,7 +12,7 @@ func Test_splitSentence(t *testing.T) {
 		want   []string
 	}{
 		{
-			"1", "Hello, mankind!", []string{"Hello, mankind!"},
+			"1", "Hello, mankind!", []string{"Hello", ", ", "mankind", "!"},
 		},
 		{
 			"2", "Привет человечество!", []string{"Привет", " ", "человечество", "!"},
@@ -25,14 +25,16 @@ func Test_splitSentence(t *testing.T) {
 		name string
 		fun  func(source string) []string
 	}{
-		{"regex", splitSentence},
+		{"regex", splitSentenceRegex},
+		{"unicode", splitSentenceUnicode},
+		{"fields", splitSentenceFields},
 	}
 	for _, tt := range tests {
 		for _, fun := range funcs {
 			t.Run(tt.name, func(t *testing.T) {
 				got := fun.fun(tt.source)
 				if !reflect.DeepEqual(got, tt.want) {
-					t.Errorf("Test_splitSentence(), fun %s\ngot = %#v, want %#v", fun.name, got, tt.want)
+					t.Errorf("Test_%v\ngot  %#v\nwant %#v", fun.name, got, tt.want)
 				}
 			})
 		}
