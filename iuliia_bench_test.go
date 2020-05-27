@@ -18,7 +18,7 @@ func prepareData(size int) (res string) {
 
 func Benchmark_splitSentence(b *testing.B) {
 
-	funcs := []struct {
+	splitters := []struct {
 		name string
 		fun  func(source string) []string
 	}{
@@ -27,13 +27,14 @@ func Benchmark_splitSentence(b *testing.B) {
 		{"fields", splitSentenceFields},
 		{"isCyrillic", splitSentence},
 	}
-	for _, funcs := range funcs {
+	for _, splitter := range splitters {
 		for k := 0.; k <= 12; k++ {
 			n := int(math.Pow(2, k))
 			testData := prepareData(n)
-			b.ResetTimer()
-			b.Run(fmt.Sprintf("%v–n=%v", funcs.name, n), func(b *testing.B) {
-				funcs.fun(testData)
+			b.Run(fmt.Sprintf("%v–n=%v", splitter.name, n), func(b *testing.B) {
+				for i := 0; i < b.N; i++ {
+					splitter.fun(testData)
+				}
 			})
 		}
 	}
@@ -42,15 +43,20 @@ func Benchmark_splitSentence(b *testing.B) {
 // bechmark get pairs methods
 var in = []rune{'a', 'b', 'c'}
 
-func BenchmarkGetPairs1(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		getPairs1(in)
+func BenchmarkGetPairs(b *testing.B) {
+	getters := []struct {
+		name string
+		fun  func(in []rune) (string, string, string)
+	}{
+		{"getPairs1", getPairs1},
+		{"getPairs1", getPairs2},
 	}
-}
-
-func BenchmarkGetPairs2(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		getPairs2(in)
+	for _, getter := range getters {
+		b.Run(getter.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				getter.fun(in)
+			}
+		})
 	}
 }
 
