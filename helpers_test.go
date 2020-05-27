@@ -146,3 +146,42 @@ func TestSchemaPrinter(t *testing.T) {
 		})
 	}
 }
+
+func Test_getPairs(t *testing.T) {
+	tests := []struct {
+		name     string
+		in       []rune
+		wantPrev string
+		wantCurr string
+		wantNext string
+	}{
+		{
+			name:     "all letters",
+			in:       []rune{'a', 'b', 'c'},
+			wantPrev: "ab",
+			wantCurr: "b",
+			wantNext: "bc",
+		},
+		{
+			name:     "only middle",
+			in:       []rune{rune(0), 'b', rune(0)},
+			wantPrev: "b",
+			wantCurr: "b",
+			wantNext: "b",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotPrev, gotCurr, gotNext := getPairs(tt.in)
+			if gotPrev != tt.wantPrev {
+				t.Errorf("getPairs() gotPrev = %v, want %v", gotPrev, tt.wantPrev)
+			}
+			if gotCurr != tt.wantCurr {
+				t.Errorf("getPairs() gotCurr = %v, want %v", gotCurr, tt.wantCurr)
+			}
+			if gotNext != tt.wantNext {
+				t.Errorf("getPairs() gotNext = %v, want %v", gotNext, tt.wantNext)
+			}
+		})
+	}
+}

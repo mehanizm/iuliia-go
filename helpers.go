@@ -101,3 +101,17 @@ func SchemaPrinter(schemas map[string]*Schema) string {
 	}
 	return res.String()
 }
+
+// Get pairs from rune slice
+func getPairs(in []rune) (prev, curr, next string) {
+	if in[0] > rune(0) {
+		prev += string(in[0])
+	}
+	prev += string(in[1])
+	curr = string(in[1])
+	next += string(in[1])
+	if in[2] > rune(0) {
+		next += string(in[2])
+	}
+	return
+}
