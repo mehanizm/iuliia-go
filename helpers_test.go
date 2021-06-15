@@ -185,3 +185,29 @@ func Test_getPairs(t *testing.T) {
 		})
 	}
 }
+
+func Test_capitalize(t *testing.T) {
+	tests := []struct {
+		name string
+		in   string
+		want string
+	}{
+		{
+			name: "positive",
+			in:   "hello",
+			want: "Hello",
+		},
+		{
+			name: "empty",
+			in:   "",
+			want: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := capitalize(tt.in); got != tt.want {
+				t.Errorf("capitalize() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

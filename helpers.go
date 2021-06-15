@@ -60,6 +60,9 @@ func splitWord(word string) (string, string) {
 // capitalize uppers only first letter of the string
 func capitalize(in string) string {
 	firstLetter, size := utf8.DecodeRuneInString(in)
+	if firstLetter == utf8.RuneError {
+		return in
+	}
 	return string(unicode.ToUpper(firstLetter)) + in[size:]
 }
 
