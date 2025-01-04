@@ -581,7 +581,7 @@ func Test_Gost_779_alt(t *testing.T) {
 		{
 			name: "0",
 			in:   "Юлия, съешь ещё этих мягких французских булок из Йошкар-Олы, да выпей алтайского чаю",
-			out:  "Yuliya, s``esh` eshhyo е`tix myagkix franczuzskix bulok iz Joshkar-Oly`, da vy`pej altajskogo chayu",
+			out:  "Yuliya, s``esh` eshhyo e`tix myagkix franczuzskix bulok iz Joshkar-Oly`, da vy`pej altajskogo chayu",
 		},
 	}
 	for _, tt := range tests {
@@ -1261,7 +1261,7 @@ func Test_Yandex_maps(t *testing.T) {
 		{
 			name: "0",
 			in:   "Юлия, съешь ещё этих мягких французских булок из Йошкар-Олы, да выпей алтайского чаю",
-			out:  "Yuliya, syesh eschyo etikh myagkikh frantsuzskikh bulok iz Yoshkar-Oly, da vypey altayskogo chayu",
+			out:  "Yuliya, syesh yeschyo etikh myagkikh frantsuzskikh bulok iz Yoshkar-Oly, da vypey altayskogo chayu",
 		},
 		{
 			name: "1",
@@ -1292,6 +1292,21 @@ func Test_Yandex_maps(t *testing.T) {
 			name: "6",
 			in:   "Новый Уренгой",
 			out:  "Noviy Urengoy",
+		},
+		{
+			name: "7",
+			in:   "Елабуга",
+			out:  "Yelabuga",
+		},
+		{
+			name: "8",
+			in:   "Бабаево",
+			out:  "Babayevo",
+		},
+		{
+			name: "9",
+			in:   "Белово",
+			out:  "Belovo",
 		},
 	}
 	for _, tt := range tests {
