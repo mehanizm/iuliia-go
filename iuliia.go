@@ -3,6 +3,7 @@
 //
 // Use of this source code is governed by an MIT license.
 // Details in the LICENSE file.
+//
 //go:generate go run schemas_generator/gen.go schemas schemas.go && gofmt -s .
 package iuliia
 
@@ -94,7 +95,6 @@ func (s *Schema) translateLetter(res *strings.Builder, in []rune) {
 		return
 	}
 	res.WriteString(string(in[1]))
-	return
 }
 
 // transalteEnding translates ending of the word
@@ -139,7 +139,6 @@ func (s *Schema) translateWord(res *strings.Builder, word string) {
 		return
 	}
 	s.translateLetters(res, word)
-	return
 }
 
 // Translate translates input strings with schema
@@ -150,7 +149,7 @@ func (s *Schema) Translate(source string) string {
 		s.build()
 	}
 	var res strings.Builder
-	for _, word := range splitSentenceUnicode(source) {
+	for _, word := range splitSentence(source) {
 		s.translateWord(&res, word)
 	}
 	return res.String()

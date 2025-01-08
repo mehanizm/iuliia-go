@@ -17,7 +17,6 @@ func prepareData(size int) (res string) {
 }
 
 func Benchmark_splitSentence(b *testing.B) {
-
 	splitters := []struct {
 		name string
 		fun  func(source string) []string
@@ -49,7 +48,7 @@ func BenchmarkGetPairs(b *testing.B) {
 		fun  func(in []rune) (string, string, string)
 	}{
 		{"getPairs1", getPairs1},
-		{"getPairs1", getPairs2},
+		{"getPairs2", getPairs2},
 	}
 	for _, getter := range getters {
 		b.Run(getter.name, func(b *testing.B) {
@@ -70,6 +69,7 @@ func prepareTestData(size int) string {
 	}
 	return res
 }
+
 func BenchmarkIuliia(b *testing.B) {
 	b.StopTimer()
 	n := 256

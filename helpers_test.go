@@ -120,7 +120,6 @@ func Test_letterReader_readLetters(t *testing.T) {
 			if !reflect.DeepEqual(res, tt.out) {
 				t.Errorf("wrong result: want: %v was: %v", tt.out, res)
 			}
-
 		})
 	}
 }
@@ -144,6 +143,71 @@ func TestSchemaPrinter(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := SchemaPrinter(tt.schemas); got != tt.want {
 				t.Errorf("\nSchemaPrinter():\n%v\nwant:\n%v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getPairs(t *testing.T) {
+	tests := []struct {
+		name     string
+		in       []rune
+		wantPrev string
+		wantCurr string
+		wantNext string
+	}{
+		{
+			name:     "all letters",
+			in:       []rune{'a', 'b', 'c'},
+			wantPrev: "ab",
+			wantCurr: "b",
+			wantNext: "bc",
+		},
+		{
+			name:     "only middle",
+			in:       []rune{rune(0), 'b', rune(0)},
+			wantPrev: "b",
+			wantCurr: "b",
+			wantNext: "b",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotPrev, gotCurr, gotNext := getPairs2(tt.in)
+			if gotPrev != tt.wantPrev {
+				t.Errorf("getPairs() gotPrev = %v, want %v", gotPrev, tt.wantPrev)
+			}
+			if gotCurr != tt.wantCurr {
+				t.Errorf("getPairs() gotCurr = %v, want %v", gotCurr, tt.wantCurr)
+			}
+			if gotNext != tt.wantNext {
+				t.Errorf("getPairs() gotNext = %v, want %v", gotNext, tt.wantNext)
+			}
+		})
+	}
+}
+
+func Test_capitalize(t *testing.T) {
+	tests := []struct {
+		name string
+		in   string
+		want string
+	}{
+		{
+			name: "positive",
+			in:   "hello",
+			want: "Hello",
+		},
+		{
+			name: "empty",
+			in:   "",
+			want: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := capitalize(tt.in); got != tt.want {
+				t.Errorf("capitalize() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -1,4 +1,4 @@
-// go:generate go run schema_generator.go && gofmt -s ../*
+//go:generate go run schema_generator.go && gofmt -s ../*
 
 package main
 
@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"go/format"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -134,8 +133,9 @@ func (s *SchemaGen) StringTest() string {
 
 func printSchemaToBuffer(
 	fileToRead string, schema schemable, schemas map[string]string,
-	destinationToWriteCode, destinationToWriteTest *bytes.Buffer) error {
-	schemaFileData, err := ioutil.ReadFile(fileToRead)
+	destinationToWriteCode, destinationToWriteTest *bytes.Buffer,
+) error {
+	schemaFileData, err := os.ReadFile(fileToRead)
 	if err != nil {
 		return err
 	}
@@ -184,7 +184,7 @@ func main() {
 	}
 	fileTestToGenerate := strings.Replace(fileToGenerate, ".go", "_test.go", -1)
 
-	schemaFiles, err := ioutil.ReadDir(dirWithSchemas)
+	schemaFiles, err := os.ReadDir(dirWithSchemas)
 	if err != nil {
 		log.Fatal(err)
 	}

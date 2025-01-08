@@ -581,7 +581,7 @@ func Test_Gost_779_alt(t *testing.T) {
 		{
 			name: "0",
 			in:   "Юлия, съешь ещё этих мягких французских булок из Йошкар-Олы, да выпей алтайского чаю",
-			out:  "Yuliya, s``esh` eshhyo е`tix myagkix franczuzskix bulok iz Joshkar-Oly`, da vy`pej altajskogo chayu",
+			out:  "Yuliya, s``esh` eshhyo e`tix myagkix franczuzskix bulok iz Joshkar-Oly`, da vy`pej altajskogo chayu",
 		},
 	}
 	for _, tt := range tests {
@@ -1146,6 +1146,31 @@ func Test_Ungegn_1987(t *testing.T) {
 	}
 }
 
+// Uz schema
+func Test_Uz(t *testing.T) {
+	tests := []struct {
+		name string
+		in   string
+		out  string
+	}{
+		{
+			name: "0",
+			in:   "Юлия, Ёшкар-Оладан олинган бу юмшоқ франтсуз рулоларини кўпроқ истеъмол қилинг ва Олтой чойини ичинг",
+			out:  "Yuliya, Yoshkar-Oladan olingan bu yumshoq frantsuz rulolarini koʻproq isteʼmol qiling va Oltoy choyini iching",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Uz.isBuilt = false
+			got := Uz.Translate(tt.in)
+			if got != tt.out {
+				fmt.Println(Uz)
+				t.Errorf("Uz got:\n%v\nbut want:\n%v\n", got, tt.out)
+			}
+		})
+	}
+}
+
 // Wikipedia schema
 func Test_Wikipedia(t *testing.T) {
 	tests := []struct {
@@ -1261,7 +1286,7 @@ func Test_Yandex_maps(t *testing.T) {
 		{
 			name: "0",
 			in:   "Юлия, съешь ещё этих мягких французских булок из Йошкар-Олы, да выпей алтайского чаю",
-			out:  "Yuliya, syesh eschyo etikh myagkikh frantsuzskikh bulok iz Yoshkar-Oly, da vypey altayskogo chayu",
+			out:  "Yuliya, syesh yeschyo etikh myagkikh frantsuzskikh bulok iz Yoshkar-Oly, da vypey altayskogo chayu",
 		},
 		{
 			name: "1",
@@ -1292,6 +1317,21 @@ func Test_Yandex_maps(t *testing.T) {
 			name: "6",
 			in:   "Новый Уренгой",
 			out:  "Noviy Urengoy",
+		},
+		{
+			name: "7",
+			in:   "Елабуга",
+			out:  "Yelabuga",
+		},
+		{
+			name: "8",
+			in:   "Бабаево",
+			out:  "Babayevo",
+		},
+		{
+			name: "9",
+			in:   "Белово",
+			out:  "Belovo",
 		},
 	}
 	for _, tt := range tests {

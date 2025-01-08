@@ -2,7 +2,7 @@
 package iuliia
 
 // ALA-LC transliteration schema.
-// https://dangry.ru/iuliia/ala-lc/
+// https://iuliia.ru/ala-lc/
 var Ala_lc = &Schema{
 	Name: "ala_lc",
 	Desc: "ALA-LC transliteration schema.",
@@ -47,7 +47,7 @@ var Ala_lc = &Schema{
 }
 
 // ALA-LC transliteration schema.
-// https://dangry.ru/iuliia/ala-lc/
+// https://iuliia.ru/ala-lc/
 var Ala_lc_alt = &Schema{
 	Name: "ala_lc_alt",
 	Desc: "ALA-LC transliteration schema.",
@@ -92,7 +92,7 @@ var Ala_lc_alt = &Schema{
 }
 
 // BGN/PCGN transliteration schema
-// https://dangry.ru/iuliia/bgn-pcgn/
+// https://iuliia.ru/bgn-pcgn/
 var Bgn_pcgn = &Schema{
 	Name: "bgn_pcgn",
 	Desc: "BGN/PCGN transliteration schema",
@@ -207,7 +207,7 @@ var Bgn_pcgn = &Schema{
 }
 
 // BGN/PCGN transliteration schema
-// https://dangry.ru/iuliia/bgn-pcgn/
+// https://iuliia.ru/bgn-pcgn/
 var Bgn_pcgn_alt = &Schema{
 	Name: "bgn_pcgn_alt",
 	Desc: "BGN/PCGN transliteration schema",
@@ -281,7 +281,7 @@ var Bgn_pcgn_alt = &Schema{
 }
 
 // British Standard 2979:1958 transliteration schema
-// https://dangry.ru/iuliia/bs-2979/
+// https://iuliia.ru/bs-2979/
 var Bs_2979 = &Schema{
 	Name: "bs_2979",
 	Desc: "British Standard 2979:1958 transliteration schema",
@@ -329,7 +329,7 @@ var Bs_2979 = &Schema{
 }
 
 // British Standard 2979:1958 transliteration schema
-// https://dangry.ru/iuliia/bs-2979/
+// https://iuliia.ru/bs-2979/
 var Bs_2979_alt = &Schema{
 	Name: "bs_2979_alt",
 	Desc: "British Standard 2979:1958 transliteration schema",
@@ -377,7 +377,7 @@ var Bs_2979_alt = &Schema{
 }
 
 // GOST 16876-71 (aka GOST 1983) transliteration schema
-// https://dangry.ru/iuliia/gost-16876/
+// https://iuliia.ru/gost-16876/
 var Gost_16876 = &Schema{
 	Name: "gost_16876",
 	Desc: "GOST 16876-71 (aka GOST 1983) transliteration schema",
@@ -422,7 +422,7 @@ var Gost_16876 = &Schema{
 }
 
 // GOST 16876-71 (aka GOST 1983) transliteration schema
-// https://dangry.ru/iuliia/gost-16876/
+// https://iuliia.ru/gost-16876/
 var Gost_16876_alt = &Schema{
 	Name: "gost_16876_alt",
 	Desc: "GOST 16876-71 (aka GOST 1983) transliteration schema",
@@ -467,7 +467,7 @@ var Gost_16876_alt = &Schema{
 }
 
 // GOST R 52290-2004 transliteration schema
-// https://dangry.ru/iuliia/gost-52290/
+// https://iuliia.ru/gost-52290/
 var Gost_52290 = &Schema{
 	Name: "gost_52290",
 	Desc: "GOST R 52290-2004 transliteration schema",
@@ -550,7 +550,7 @@ var Gost_52290 = &Schema{
 }
 
 // GOST R 52535.1-2006 transliteration schema
-// http://localhost:3000/iuliia/gost-52535/
+// https://iuliia.ru/gost-52535/
 var Gost_52535 = &Schema{
 	Name: "gost_52535",
 	Desc: "GOST R 52535.1-2006 transliteration schema",
@@ -595,7 +595,7 @@ var Gost_52535 = &Schema{
 }
 
 // GOST R 7.0.34-2014 transliteration schema
-// http://localhost:3000/iuliia/gost-7034/
+// https://iuliia.ru/gost-7034/
 var Gost_7034 = &Schema{
 	Name: "gost_7034",
 	Desc: "GOST R 7.0.34-2014 transliteration schema",
@@ -640,7 +640,7 @@ var Gost_7034 = &Schema{
 }
 
 // GOST 7.79-2000 (aka ISO 9:1995) transliteration schema
-// https://dangry.ru/iuliia/gost-779/
+// https://iuliia.ru/gost-779/
 var Gost_779 = &Schema{
 	Name: "gost_779",
 	Desc: "GOST 7.79-2000 (aka ISO 9:1995) transliteration schema",
@@ -685,7 +685,7 @@ var Gost_779 = &Schema{
 }
 
 // GOST 7.79-2000 (aka ISO 9:1995) transliteration schema
-// https://dangry.ru/iuliia/gost-779/
+// https://iuliia.ru/gost-779/
 var Gost_779_alt = &Schema{
 	Name: "gost_779_alt",
 	Desc: "GOST 7.79-2000 (aka ISO 9:1995) transliteration schema",
@@ -719,7 +719,7 @@ var Gost_779_alt = &Schema{
 		"ъ": "``",
 		"ы": "y`",
 		"ь": "`",
-		"э": "е`",
+		"э": "e`",
 		"ю": "yu",
 		"я": "ya",
 		"ё": "yo",
@@ -735,7 +735,7 @@ var Gost_779_alt = &Schema{
 }
 
 // ICAO DOC 9303 transliteration schema
-// https://dangry.ru/iuliia/icao-doc-9303/
+// https://iuliia.ru/icao-doc-9303/
 var Icao_doc_9303 = &Schema{
 	Name: "icao_doc_9303",
 	Desc: "ICAO DOC 9303 transliteration schema",
@@ -780,7 +780,7 @@ var Icao_doc_9303 = &Schema{
 }
 
 // ISO/R 9:1954 transliteration schema
-// https://dangry.ru/iuliia/iso-9-1954/
+// https://iuliia.ru/iso-9-1954/
 var Iso_9_1954 = &Schema{
 	Name: "iso_9_1954",
 	Desc: "ISO/R 9:1954 transliteration schema",
@@ -825,7 +825,7 @@ var Iso_9_1954 = &Schema{
 }
 
 // ISO/R 9:1968 transliteration schema
-// https://dangry.ru/iuliia/iso-9-1968/
+// https://iuliia.ru/iso-9-1968/
 var Iso_9_1968 = &Schema{
 	Name: "iso_9_1968",
 	Desc: "ISO/R 9:1968 transliteration schema",
@@ -870,7 +870,7 @@ var Iso_9_1968 = &Schema{
 }
 
 // ISO/R 9:1968 transliteration schema
-// https://dangry.ru/iuliia/iso-9-1968/
+// https://iuliia.ru/iso-9-1968/
 var Iso_9_1968_alt = &Schema{
 	Name: "iso_9_1968_alt",
 	Desc: "ISO/R 9:1968 transliteration schema",
@@ -915,7 +915,7 @@ var Iso_9_1968_alt = &Schema{
 }
 
 // Moscow Metro map transliteration schema
-// https://dangry.ru/iuliia/mosmetro/
+// https://iuliia.ru/mosmetro/
 var Mosmetro = &Schema{
 	Name: "mosmetro",
 	Desc: "Moscow Metro map transliteration schema",
@@ -982,7 +982,7 @@ var Mosmetro = &Schema{
 }
 
 // MVD 310-1997 transliteration schema
-// https://dangry.ru/iuliia/mvd-310/
+// https://iuliia.ru/mvd-310/
 var Mvd_310 = &Schema{
 	Name: "mvd_310",
 	Desc: "MVD 310-1997 transliteration schema",
@@ -1033,7 +1033,7 @@ var Mvd_310 = &Schema{
 }
 
 // MVD 310-1997 transliteration schema
-// https://dangry.ru/iuliia/mvd-310/
+// https://iuliia.ru/mvd-310/
 var Mvd_310_fr = &Schema{
 	Name: "mvd_310_fr",
 	Desc: "MVD 310-1997 transliteration schema",
@@ -1088,7 +1088,7 @@ var Mvd_310_fr = &Schema{
 }
 
 // MVD 782-2000 transliteration schema
-// https://dangry.ru/iuliia/mvd-782/
+// https://iuliia.ru/mvd-782/
 var Mvd_782 = &Schema{
 	Name: "mvd_782",
 	Desc: "MVD 782-2000 transliteration schema",
@@ -1173,7 +1173,7 @@ var Mvd_782 = &Schema{
 }
 
 // Scientific transliteration schema
-// https://dangry.ru/iuliia/scientific/
+// https://iuliia.ru/scientific/
 var Scientific = &Schema{
 	Name: "scientific",
 	Desc: "Scientific transliteration schema",
@@ -1218,7 +1218,7 @@ var Scientific = &Schema{
 }
 
 // Telegram transliteration schema
-// https://dangry.ru/iuliia/telegram/
+// https://iuliia.ru/telegram/
 var Telegram = &Schema{
 	Name: "telegram",
 	Desc: "Telegram transliteration schema",
@@ -1263,7 +1263,7 @@ var Telegram = &Schema{
 }
 
 // UNGEGN 1987 V/18 transliteration schema
-// https://dangry.ru/iuliia/ungegn-1987/
+// https://iuliia.ru/ungegn-1987/
 var Ungegn_1987 = &Schema{
 	Name: "ungegn_1987",
 	Desc: "UNGEGN 1987 V/18 transliteration schema",
@@ -1307,8 +1307,56 @@ var Ungegn_1987 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
+// Uzbekistan cyr-lat transliteration schema
+// https://en.wikipedia.org/wiki/Uzbek_alphabet
+var Uz = &Schema{
+	Name: "uz",
+	Desc: "Uzbekistan cyr-lat transliteration schema",
+	Mapping: map[string]string{
+		"а": "a",
+		"б": "b",
+		"в": "v",
+		"г": "g",
+		"д": "d",
+		"е": "e",
+		"ж": "j",
+		"з": "z",
+		"и": "i",
+		"й": "y",
+		"к": "k",
+		"л": "l",
+		"м": "m",
+		"н": "n",
+		"о": "o",
+		"п": "p",
+		"р": "r",
+		"с": "s",
+		"т": "t",
+		"у": "u",
+		"ф": "f",
+		"х": "x",
+		"ц": "s",
+		"ч": "ch",
+		"ш": "sh",
+		"щ": "sh",
+		"ъ": "ʼ",
+		"ы": "i",
+		"э": "e",
+		"ю": "yu",
+		"я": "ya",
+		"ё": "yo",
+		"ў": "oʻ",
+		"ғ": "gʻ",
+		"қ": "q",
+		"ҳ": "h",
+	},
+	PrevMapping:   map[string]string{},
+	NextMapping:   map[string]string{},
+	EndingMapping: map[string]string{},
+}
+
 // Wikipedia transliteration schema
-// https://dangry.ru/iuliia/wikipedia/
+// https://iuliia.ru/wikipedia/
 var Wikipedia = &Schema{
 	Name: "wikipedia",
 	Desc: "Wikipedia transliteration schema",
@@ -1380,7 +1428,7 @@ var Wikipedia = &Schema{
 }
 
 // Yandex.Maps transliteration schema
-// https://dangry.ru/iuliia/yandex-maps/
+// https://iuliia.ru/yandex-maps/
 var Yandex_maps = &Schema{
 	Name: "yandex_maps",
 	Desc: "Yandex.Maps transliteration schema",
@@ -1419,7 +1467,16 @@ var Yandex_maps = &Schema{
 		"я": "ya",
 		"ё": "yo",
 	},
-	PrevMapping: map[string]string{},
+	PrevMapping: map[string]string{
+		"ае": "ye",
+		"е":  "ye",
+		"ие": "ye",
+		"ое": "ye",
+		"уе": "ye",
+		"эе": "ye",
+		"юе": "ye",
+		"яе": "ye",
+	},
 	NextMapping: map[string]string{
 		"ъе": "y",
 	},
@@ -1429,7 +1486,7 @@ var Yandex_maps = &Schema{
 }
 
 // Yandex.Money transliteration schema
-// https://dangry.ru/iuliia/yandex-money/
+// https://iuliia.ru/yandex-money/
 var Yandex_money = &Schema{
 	Name: "yandex_money",
 	Desc: "Yandex.Money transliteration schema",
@@ -1499,6 +1556,7 @@ var SchemaMapping = map[string]*Schema{
 	"scientific":     Scientific,
 	"telegram":       Telegram,
 	"ungegn_1987":    Ungegn_1987,
+	"uz":             Uz,
 	"wikipedia":      Wikipedia,
 	"yandex_maps":    Yandex_maps,
 	"yandex_money":   Yandex_money,
