@@ -1307,6 +1307,54 @@ var Ungegn_1987 = &Schema{
 	EndingMapping: map[string]string{},
 }
 
+// Uzbekistan cyr-lat transliteration schema
+// https://en.wikipedia.org/wiki/Uzbek_alphabet
+var Uz = &Schema{
+	Name: "uz",
+	Desc: "Uzbekistan cyr-lat transliteration schema",
+	Mapping: map[string]string{
+		"а": "a",
+		"б": "b",
+		"в": "v",
+		"г": "g",
+		"д": "d",
+		"е": "e",
+		"ж": "j",
+		"з": "z",
+		"и": "i",
+		"й": "y",
+		"к": "k",
+		"л": "l",
+		"м": "m",
+		"н": "n",
+		"о": "o",
+		"п": "p",
+		"р": "r",
+		"с": "s",
+		"т": "t",
+		"у": "u",
+		"ф": "f",
+		"х": "x",
+		"ц": "s",
+		"ч": "ch",
+		"ш": "sh",
+		"щ": "sh",
+		"ъ": "ʼ",
+		"ы": "i",
+		"э": "e",
+		"ю": "yu",
+		"я": "ya",
+		"ё": "yo",
+		"ў": "oʻ",
+		"ғ": "gʻ",
+		"қ": "q",
+		"ҳ": "h",
+	},
+	PrevMapping:   map[string]string{},
+	NextMapping:   map[string]string{},
+	EndingMapping: map[string]string{},
+}
+
 // Wikipedia transliteration schema
 // https://iuliia.ru/wikipedia/
 var Wikipedia = &Schema{
@@ -1508,6 +1556,7 @@ var SchemaMapping = map[string]*Schema{
 	"scientific":     Scientific,
 	"telegram":       Telegram,
 	"ungegn_1987":    Ungegn_1987,
+	"uz":             Uz,
 	"wikipedia":      Wikipedia,
 	"yandex_maps":    Yandex_maps,
 	"yandex_money":   Yandex_money,

@@ -1146,6 +1146,31 @@ func Test_Ungegn_1987(t *testing.T) {
 	}
 }
 
+// Uz schema
+func Test_Uz(t *testing.T) {
+	tests := []struct {
+		name string
+		in   string
+		out  string
+	}{
+		{
+			name: "0",
+			in:   "Юлия, Ёшкар-Оладан олинган бу юмшоқ франтсуз рулоларини кўпроқ истеъмол қилинг ва Олтой чойини ичинг",
+			out:  "Yuliya, Yoshkar-Oladan olingan bu yumshoq frantsuz rulolarini koʻproq isteʼmol qiling va Oltoy choyini iching",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			Uz.isBuilt = false
+			got := Uz.Translate(tt.in)
+			if got != tt.out {
+				fmt.Println(Uz)
+				t.Errorf("Uz got:\n%v\nbut want:\n%v\n", got, tt.out)
+			}
+		})
+	}
+}
+
 // Wikipedia schema
 func Test_Wikipedia(t *testing.T) {
 	tests := []struct {
